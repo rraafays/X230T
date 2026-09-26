@@ -88,18 +88,6 @@ in
     nerd-fonts.symbols-only
   ];
 
-  programs.fish = {
-    enable = true;
-    interactiveShellInit = ''
-      	fish_vi_key_bindings
-      	set fish_greeting
-    '';
-  };
-
-  programs.zoxide = {
-    enable = true;
-    enableFishIntegration = true;
-  };
   environment.sessionVariables = rec {
     MESA_GL_VERSION_OVERRIDE = "4.3";
     MESA_GLSL_VERSION_OVERRIDE = "430";

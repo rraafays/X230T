@@ -4,11 +4,24 @@ let
   USER = "raf";
 in
 {
+  programs.fish.enable = true;
+
   home-manager = {
     backupFileExtension = "old";
     users.${USER} = {
       programs = {
-        fish.enable = true;
+        fish = {
+          enable = true;
+          interactiveShellInit = ''
+            fish_vi_key_bindings
+            set fish_greeting
+          '';
+        };
+
+        zoxide = {
+          enable = true;
+          enableFishIntegration = true;
+        };
 
         gh.enable = true;
 
