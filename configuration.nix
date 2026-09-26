@@ -18,6 +18,7 @@ in
       enable = true;
       device = "/dev/sda";
       useOSProber = true;
+      configurationLimit = 10;
     };
   };
 
@@ -84,6 +85,15 @@ in
     sessionVariables = rec {
       MESA_GL_VERSION_OVERRIDE = "4.3";
       MESA_GLSL_VERSION_OVERRIDE = "430";
+    };
+  };
+
+  nix = {
+    settings.auto-optimise-store = true;
+    gc = {
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than 30d";
     };
   };
 
