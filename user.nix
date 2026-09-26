@@ -6,22 +6,25 @@ in
 {
   home-manager = {
     backupFileExtension = "old";
-    users.raf = {
+    users.${USER} = {
       programs.fish.enable = true;
       programs.gh.enable = true;
+
       programs.git = {
         enable = true;
         settings = {
           user = {
-            name = "raf";
+            name = "${USER}";
             email = "rraf@tuta.io";
           };
         };
       };
+
       programs.nix-your-shell = {
         enable = true;
         enableFishIntegration = true;
       };
+
       programs.ghostty = {
         enable = true;
         systemd.enable = true;
@@ -32,6 +35,7 @@ in
           command = "${pkgs.tmux}/bin/tmux new-session -A -D -s ghostty";
         };
       };
+
       home = {
         shell.enableFishIntegration = true;
         stateVersion = "26.05";
@@ -39,10 +43,10 @@ in
     };
   };
 
-  users.users."raf" = {
+  users.users.${USER} = {
     shell = pkgs.fish;
     isNormalUser = true;
-    description = "raf";
+    description = "${USER}";
     extraGroups = [
       "networkmanager"
       "wheel"
