@@ -31,7 +31,6 @@ in
   };
 
   time.timeZone = "Europe/London";
-
   i18n = {
     defaultLocale = "en_GB.UTF-8";
     extraLocaleSettings = {
@@ -69,29 +68,26 @@ in
 
   security.rtkit.enable = true;
 
-  environment.gnome.excludePackages = with pkgs; [
-    gnome-tour
-    gnome-user-docs
-    gnome-music
-    showtime
-    epiphany
-    gnome-console
-  ];
+  environment = {
+    enableAllTerminfo = true;
+    systemPackages = with pkgs; [
+      nix-search
+    ];
+    gnome.excludePackages = with pkgs; [
+      gnome-tour
+      gnome-user-docs
+      gnome-music
+      showtime
+      epiphany
+      gnome-console
+    ];
 
-  nixpkgs.config.allowUnfree = true;
-
-  environment.enableAllTerminfo = true;
-  environment.systemPackages = with pkgs; [
-    nix-search
-    iosevka
-    sarasa-gothic
-    nerd-fonts.symbols-only
-  ];
-
-  environment.sessionVariables = rec {
-    MESA_GL_VERSION_OVERRIDE = "4.3";
-    MESA_GLSL_VERSION_OVERRIDE = "430";
+    sessionVariables = rec {
+      MESA_GL_VERSION_OVERRIDE = "4.3";
+      MESA_GLSL_VERSION_OVERRIDE = "430";
+    };
   };
 
+  nixpkgs.config.allowUnfree = true;
   system.stateVersion = "26.05";
 }

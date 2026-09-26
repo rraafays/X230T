@@ -127,6 +127,9 @@ in
       mpv
       wechat
       tuxguitar
+      iosevka
+      sarasa-gothic
+      nerd-fonts.symbols-only
     ];
   };
 }
