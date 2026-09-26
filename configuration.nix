@@ -6,43 +6,11 @@ in
 {
   imports = [
     "${home-manager}/nixos"
+    ./user.nix
     ./hardware-configuration.nix
     ./neovim.nix
     ./keyboard.nix
   ];
-
-  home-manager.backupFileExtension = "old";
-  home-manager.users.raf = {
-    programs.fish.enable = true;
-    programs.gh.enable = true;
-    programs.git = {
-      enable = true;
-      settings = {
-        user = {
-          name = "raf";
-          email = "rraf@tuta.io";
-        };
-      };
-    };
-    programs.nix-your-shell = {
-      enable = true;
-      enableFishIntegration = true;
-    };
-    programs.ghostty = {
-      enable = true;
-      systemd.enable = true;
-      enableFishIntegration = true;
-      clearDefaultKeybinds = true;
-      settings = {
-        font-family = "Iosevka";
-        theme = "light:Adwaita,dark:Adwaita Dark";
-      };
-    };
-    home = {
-      shell.enableFishIntegration = true;
-      stateVersion = "26.05";
-    };
-  };
 
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
@@ -101,50 +69,6 @@ in
 
   security.rtkit.enable = true;
 
-  users.users."raf" = {
-    shell = pkgs.fish;
-    isNormalUser = true;
-    description = "raf";
-    extraGroups = [
-      "networkmanager"
-      "wheel"
-    ];
-    packages = with pkgs; [
-      amberol
-      apostrophe
-      audio-sharing
-      blanket
-      collision
-      constrict
-      curtail
-      deja-dup
-      decoder
-      dialect
-      eartag
-      eyedropper
-      fragments
-      fretboard
-      impression
-      junction
-      gnome-mahjongg
-      gnome-obfuscate
-      paper-clip
-      pika-backup
-      switcheroo
-      tangram
-      valuta
-      video-trimmer
-      gnome-boxes
-      dconf2nix
-      firefox
-      firefox-gnome-theme
-      cine
-      mpv
-      wechat
-      tuxguitar
-    ];
-  };
-
   environment.gnome.excludePackages = with pkgs; [
     gnome-tour
     gnome-user-docs
@@ -152,6 +76,16 @@ in
     showtime
     epiphany
     gnome-console
+  ];
+
+  nixpkgs.config.allowUnfree = true;
+
+  environment.enableAllTerminfo = true;
+  environment.systemPackages = with pkgs; [
+    nix-search
+    iosevka
+    sarasa-gothic
+    nerd-fonts.symbols-only
   ];
 
   programs.fish = {
@@ -166,17 +100,6 @@ in
     enable = true;
     enableFishIntegration = true;
   };
-
-  nixpkgs.config.allowUnfree = true;
-
-  environment.enableAllTerminfo = true;
-  environment.systemPackages = with pkgs; [
-    nix-search
-    iosevka
-    sarasa-gothic
-    nerd-fonts.symbols-only
-  ];
-
   environment.sessionVariables = rec {
     MESA_GL_VERSION_OVERRIDE = "4.3";
     MESA_GLSL_VERSION_OVERRIDE = "430";
