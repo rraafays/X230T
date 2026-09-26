@@ -7,32 +7,35 @@ in
   home-manager = {
     backupFileExtension = "old";
     users.${USER} = {
-      programs.fish.enable = true;
-      programs.gh.enable = true;
+      programs = {
+        fish.enable = true;
 
-      programs.git = {
-        enable = true;
-        settings = {
-          user = {
-            name = "${USER}";
-            email = "rraf@tuta.io";
+        gh.enable = true;
+
+        git = {
+          enable = true;
+          settings = {
+            user = {
+              name = "${USER}";
+              email = "rraf@tuta.io";
+            };
           };
         };
-      };
 
-      programs.nix-your-shell = {
-        enable = true;
-        enableFishIntegration = true;
-      };
+        nix-your-shell = {
+          enable = true;
+          enableFishIntegration = true;
+        };
 
-      programs.ghostty = {
-        enable = true;
-        systemd.enable = true;
-        enableFishIntegration = true;
-        settings = {
-          font-family = "Iosevka";
-          theme = "light:Adwaita,dark:Adwaita Dark";
-          command = "${pkgs.tmux}/bin/tmux new-session -A -D -s ghostty";
+        ghostty = {
+          enable = true;
+          systemd.enable = true;
+          enableFishIntegration = true;
+          settings = {
+            font-family = "Iosevka";
+            theme = "light:Adwaita,dark:Adwaita Dark";
+            command = "${pkgs.tmux}/bin/tmux new-session -A -D -s ghostty";
+          };
         };
       };
 
