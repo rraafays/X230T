@@ -26,10 +26,10 @@ in
         enable = true;
         systemd.enable = true;
         enableFishIntegration = true;
-        clearDefaultKeybinds = true;
         settings = {
           font-family = "Iosevka";
           theme = "light:Adwaita,dark:Adwaita Dark";
+          command = "${pkgs.tmux}/bin/tmux new-session -A -D -s ghostty";
         };
       };
       home = {
