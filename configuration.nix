@@ -46,6 +46,7 @@ in
     };
   };
 
+  security.rtkit.enable = true;
   services = {
     openssh.enable = true;
     displayManager.gdm.enable = true;
@@ -65,8 +66,6 @@ in
       variant = "";
     };
   };
-
-  security.rtkit.enable = true;
 
   environment = {
     enableAllTerminfo = true;

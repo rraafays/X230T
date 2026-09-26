@@ -95,41 +95,44 @@ in
       "wheel"
     ];
     packages = with pkgs; [
+      # fonts
+      iosevka
+      sarasa-gothic
+      nerd-fonts.symbols-only
+
+      # applications
       amberol
       apostrophe
       audio-sharing
       blanket
+      cine
       collision
       constrict
       curtail
-      deja-dup
+      dconf2nix
       decoder
+      deja-dup
       dialect
       eartag
       eyedropper
+      firefox
+      firefox-gnome-theme
       fragments
       fretboard
-      impression
-      junction
+      gnome-boxes
       gnome-mahjongg
       gnome-obfuscate
+      impression
+      junction
+      mpv
       paper-clip
       pika-backup
       switcheroo
       tangram
+      tuxguitar
       valuta
       video-trimmer
-      gnome-boxes
-      dconf2nix
-      firefox
-      firefox-gnome-theme
-      cine
-      mpv
       wechat
-      tuxguitar
-      iosevka
-      sarasa-gothic
-      nerd-fonts.symbols-only
     ];
   };
 }
