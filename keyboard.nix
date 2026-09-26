@@ -1,18 +1,17 @@
 { pkgs, ... }:
 
+let
+  USER = "raf";
+in
 {
   users.groups = {
     "input" = {
       name = "input";
-      members = [
-        (builtins.getEnv "USER")
-      ];
+      members = [ USER ];
     };
     "uinput" = {
       name = "uinput";
-      members = [
-        (builtins.getEnv "USER")
-      ];
+      members = [ USER ];
     };
   };
   services.kanata = {
