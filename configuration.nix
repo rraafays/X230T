@@ -1,6 +1,7 @@
 { config, pkgs, ... }:
 
 let
+  VERSION = "26.05";
   home-manager = builtins.fetchTarball "https://github.com/nix-community/home-manager/archive/release-26.05.tar.gz";
 in
 {
@@ -11,6 +12,19 @@ in
     ./neovim.nix
     ./keyboard.nix
   ];
+
+  nixpkgs.config.allowUnfree = true;
+  nix.settings.auto-optimise-store = true;
+  system = {
+    stateVersion = "26.05";
+    autoUpgrade = {
+      enable = true;
+      channel = "https://channels.nixos.org/nixos-${VERSION}";
+      dates = "10:00";
+      operation = "switch";
+      runGarbageCollection = true;
+    };
+  };
 
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
@@ -87,16 +101,4 @@ in
       MESA_GLSL_VERSION_OVERRIDE = "430";
     };
   };
-
-  nix = {
-    settings.auto-optimise-store = true;
-    gc = {
-      automatic = true;
-      dates = "weekly";
-      options = "--delete-older-than 30d";
-    };
-  };
-
-  nixpkgs.config.allowUnfree = true;
-  system.stateVersion = "26.05";
 }
