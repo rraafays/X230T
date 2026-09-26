@@ -1,5 +1,19 @@
 { pkgs, ... }:
+
+let
+  USER = "raf";
+in
 {
+  users.groups = {
+    "input" = {
+      name = "input";
+      members = [ USER ];
+    };
+    "uinput" = {
+      name = "uinput";
+      members = [ USER ];
+    };
+  };
   services.kanata = {
     enable = true;
     keyboards."default".config = ''
