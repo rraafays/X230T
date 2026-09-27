@@ -15,7 +15,7 @@ in
 
   nix.settings.auto-optimise-store = true;
   nixpkgs.config.allowUnfree = true;
-  security.rtkit.enable = true;
+
   system = {
     stateVersion = "26.05";
     autoUpgrade = {
@@ -34,6 +34,17 @@ in
       device = "/dev/sda";
       useOSProber = true;
       configurationLimit = 10;
+    };
+  };
+
+  security = {
+    rtkit.enable = true;
+    sudo = {
+      enable = true;
+      extraConfig = ''
+        Defaults lecture = never
+        Defaults pwfeedback
+      '';
     };
   };
 
