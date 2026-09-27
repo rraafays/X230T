@@ -13,8 +13,9 @@ in
     ./keyboard.nix
   ];
 
-  nixpkgs.config.allowUnfree = true;
   nix.settings.auto-optimise-store = true;
+  nixpkgs.config.allowUnfree = true;
+  security.rtkit.enable = true;
   system = {
     stateVersion = "26.05";
     autoUpgrade = {
@@ -40,9 +41,11 @@ in
     hostName = "X230T";
     wireless.enable = true;
     networkmanager.enable = true;
-    firewall.enable = true;
-    firewall.allowedTCPPorts = [ ];
-    firewall.allowedUDPPorts = [ ];
+    firewall = {
+      enable = true;
+      allowedTCPPorts = [ ];
+      allowedUDPPorts = [ ];
+    };
   };
 
   time.timeZone = "Europe/London";
@@ -61,7 +64,6 @@ in
     };
   };
 
-  security.rtkit.enable = true;
   services = {
     openssh.enable = true;
     displayManager.gdm.enable = true;
@@ -95,7 +97,6 @@ in
       epiphany
       gnome-console
     ];
-
     sessionVariables = rec {
       MESA_GL_VERSION_OVERRIDE = "4.3";
       MESA_GLSL_VERSION_OVERRIDE = "430";
