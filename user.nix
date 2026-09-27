@@ -139,6 +139,7 @@ in
       impression
       junction
       mpv
+      nootka
       paper-clip
       pika-backup
       rawtherapee
