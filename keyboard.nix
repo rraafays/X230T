@@ -60,4 +60,17 @@ in
       )
     '';
   };
+
+  systemd.services.kanata-input-device = {
+    description = "Restart Kanata after an input device is connected";
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = "${pkgs.systemd}/bin/systemctl restart kanata-default.service";
+    };
+  };
+
+  services.udev.extraRules = ''
+    ACTION=="add", SUBSYSTEM=="input", ENV{ID_INPUT}=="1", ATTRS{name}!="kanata", \
+      TAG+="systemd", ENV{SYSTEMD_WANTS}+="kanata-input-device.service"
+  '';
 }
