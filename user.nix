@@ -127,6 +127,7 @@ in
       mpv
       paper-clip
       pika-backup
+      rawtherapee
       switcheroo
       tangram
       tuxguitar
