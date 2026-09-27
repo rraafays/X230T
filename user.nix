@@ -9,6 +9,21 @@ in
   home-manager = {
     backupFileExtension = "old";
     users.${USER} = {
+      gtk = {
+        enable = true;
+        colorScheme = "dark";
+        theme = {
+          name = "Adwaita-dark";
+          package = pkgs.gnome-themes-extra;
+        };
+      };
+      qt = {
+        enable = true;
+        style = {
+          name = "adwaita-dark";
+          package = pkgs.adwaita-qt;
+        };
+      };
       programs = {
         fish = {
           enable = true;
@@ -23,8 +38,12 @@ in
           enableFishIntegration = true;
         };
 
-        gh.enable = true;
+        nix-your-shell = {
+          enable = true;
+          enableFishIntegration = true;
+        };
 
+        gh.enable = true;
         git = {
           enable = true;
           settings = {
@@ -33,11 +52,6 @@ in
               email = "rraf@tuta.io";
             };
           };
-        };
-
-        nix-your-shell = {
-          enable = true;
-          enableFishIntegration = true;
         };
 
         ghostty = {
