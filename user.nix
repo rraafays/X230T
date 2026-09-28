@@ -144,6 +144,7 @@ in
       paper-clip
       pika-backup
       rawtherapee
+      rockbox-utility
       switcheroo
       tangram
       tuxguitar
