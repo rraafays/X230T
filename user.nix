@@ -145,6 +145,7 @@ in
       rawtherapee
       switcheroo
       tangram
+      transmission-remote-gtk
       tuxguitar
       valuta
       video-trimmer
