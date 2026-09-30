@@ -123,6 +123,7 @@ in
       cine
       collision
       constrict
+      crosspipe
       curtail
       dconf2nix
       decoder
@@ -143,6 +144,7 @@ in
       nootka
       paper-clip
       pika-backup
+      pwvucontrol
       rawtherapee
       rockbox-utility
       switcheroo
