@@ -153,6 +153,7 @@ in
       valuta
       video-trimmer
       wechat
+      gnomeExtensions.audio-switch-shortcuts
     ];
   };
 }
