@@ -9,7 +9,7 @@ in
     "${home-manager}/nixos"
     ./user.nix
     ./hardware-configuration.nix
-    ./neovim.nix
+    ./neovim
     ./keyboard.nix
   ];
 

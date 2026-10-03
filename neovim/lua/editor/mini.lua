@@ -1,0 +1,105 @@
+require("mini.icons").setup()
+require("mini.statusline").setup()
+require("mini.diff").setup()
+require("mini.surround").setup()
+require("mini.completion").setup()
+
+local ai = require("mini.ai")
+ai.setup({
+    custom_textobjects = {
+        F = ai.gen_spec.treesitter({ a = "@function.outer", i = "@function.inner" }),
+        c = ai.gen_spec.treesitter({ a = "@class.outer", i = "@class.inner" }),
+    },
+})
+
+local clue = require("mini.clue")
+clue.setup({
+    triggers = {
+        { mode = "n", keys = "g" },
+        { mode = "x", keys = "g" },
+        { mode = "n", keys = "z" },
+        { mode = "x", keys = "z" },
+        { mode = "n", keys = "[" },
+        { mode = "n", keys = "]" },
+        { mode = "n", keys = "'" },
+        { mode = "n", keys = "`" },
+        { mode = "x", keys = "'" },
+        { mode = "x", keys = "`" },
+        { mode = "n", keys = '"' },
+        { mode = "x", keys = '"' },
+        { mode = "i", keys = "<C-r>" },
+        { mode = "c", keys = "<C-r>" },
+        { mode = "i", keys = "<C-x>" },
+        { mode = "n", keys = "<C-w>" },
+    },
+    clues = {
+        clue.gen_clues.builtin_completion(),
+        clue.gen_clues.g(),
+        clue.gen_clues.marks(),
+        clue.gen_clues.registers(),
+        clue.gen_clues.windows(),
+        clue.gen_clues.z(),
+    },
+})
+
+local pick = require("mini.pick")
+pick.setup()
+vim.ui.select = pick.ui_select
+
+local files = require("mini.files")
+files.setup()
+
+vim.keymap.set("n", "<C-p>", function()
+    pick.builtin.files()
+end)
+vim.keymap.set("n", "<M-f>", function()
+    pick.builtin.grep_live()
+end)
+vim.keymap.set("n", "<M-b>", function()
+    pick.builtin.buffers()
+end)
+vim.keymap.set("n", "<M-e>", function()
+    local name = vim.api.nvim_buf_get_name(0)
+    files.open(vim.uv.fs_stat(name) and name or nil)
+end)
+
+local mini_pairs = require("mini.pairs")
+mini_pairs.setup()
+
+local function around(before, after)
+    local col = vim.api.nvim_win_get_cursor(0)[2]
+    local line = vim.api.nvim_get_current_line()
+    return line:sub(col - before + 1, col) .. "|" .. line:sub(col + 1, col + after)
+end
+
+vim.keymap.set("i", "<Space>", function()
+    if around(1, 1) == "{|}" then
+        return "<Space><Space><Left>"
+    end
+    return "<Space>"
+end, { expr = true })
+
+vim.keymap.set("i", "<BS>", function()
+    if around(2, 2) == "{ | }" then
+        return vim.keycode("<BS><Del>")
+    end
+    return mini_pairs.bs()
+end, { expr = true, replace_keycodes = false })
+
+vim.keymap.set("i", "<CR>", function()
+    if vim.fn.pumvisible() == 0 then
+        return mini_pairs.cr()
+    end
+    if vim.fn.complete_info({ "selected" }).selected ~= -1 then
+        return vim.keycode("<C-y>")
+    end
+    return vim.keycode("<C-e>") .. mini_pairs.cr()
+end, { expr = true, replace_keycodes = false })
+
+vim.keymap.set("i", "<Tab>", function()
+    return vim.fn.pumvisible() == 1 and "<C-n>" or "<Tab>"
+end, { expr = true })
+
+vim.keymap.set("i", "<S-Tab>", function()
+    return vim.fn.pumvisible() == 1 and "<C-p>" or "<S-Tab>"
+end, { expr = true })

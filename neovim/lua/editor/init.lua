@@ -1,0 +1,6 @@
+require("editor.options")
+require("editor.treesitter")
+require("editor.mini")
+require("editor.colors")
+require("editor.lsp")
+require("editor.format")

@@ -43,6 +43,11 @@ in
           enableFishIntegration = true;
         };
 
+        direnv = {
+          enable = true;
+          nix-direnv.enable = true;
+        };
+
         gh.enable = true;
         git = {
           enable = true;
