@@ -1,8 +1,8 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
 let
   VERSION = "26.05";
-  home-manager = builtins.fetchTarball "https://github.com/nix-community/home-manager/archive/release-26.05.tar.gz";
+  home-manager = fetchTarball "https://github.com/nix-community/home-manager/archive/release-26.05.tar.gz";
 in
 {
   imports = [
@@ -109,7 +109,7 @@ in
       epiphany
       gnome-console
     ];
-    sessionVariables = rec {
+    sessionVariables = {
       MESA_GL_VERSION_OVERRIDE = "4.3";
       MESA_GLSL_VERSION_OVERRIDE = "430";
     };
