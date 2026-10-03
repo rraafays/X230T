@@ -8,15 +8,30 @@ end
 ansi[color_map.NvimDarkGrey4] = 8
 ansi[color_map.NvimLightGrey4] = 8
 
-local bold_reverse = { reverse = true, bold = true }
-
 local overrides = {
-    MiniStatuslineModeNormal = { cterm = bold_reverse },
-    MiniStatuslineModeInsert = { cterm = bold_reverse },
-    MiniStatuslineModeVisual = { cterm = bold_reverse },
-    MiniStatuslineModeReplace = { cterm = bold_reverse },
-    MiniStatuslineModeCommand = { cterm = bold_reverse },
-    MiniStatuslineModeOther = { cterm = bold_reverse },
+    StatusLine = {},
+    StatusLineNC = { ctermfg = 8 },
+    MiniStatuslineModeNormal = { cterm = { bold = true } },
+    MiniStatuslineModeInsert = { cterm = { bold = true } },
+    MiniStatuslineModeVisual = { cterm = { bold = true } },
+    MiniStatuslineModeReplace = { cterm = { bold = true } },
+    MiniStatuslineModeCommand = { cterm = { bold = true } },
+    MiniStatuslineModeOther = { cterm = { bold = true } },
+    MiniStatuslineDevinfo = { ctermfg = 8 },
+    MiniStatuslineFilename = {},
+    MiniStatuslineFileinfo = { ctermfg = 8 },
+    MiniStatuslineInactive = { ctermfg = 8 },
+
+    NormalFloat = {},
+    FloatBorder = { ctermfg = 8 },
+    Pmenu = {},
+    PmenuSel = { cterm = { reverse = true } },
+    PmenuKind = {},
+    PmenuExtra = { ctermfg = 8 },
+    PmenuSbar = {},
+    PmenuThumb = { ctermbg = 8 },
+    PmenuBorder = { ctermfg = 8 },
+
     MiniFilesCursorLine = { cterm = { reverse = true } },
     MiniPickMatchCurrent = { cterm = { reverse = true } },
     MiniPickPreviewLine = { cterm = { reverse = true } },

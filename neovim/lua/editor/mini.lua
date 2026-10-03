@@ -18,6 +18,7 @@ ai.setup({
 
 local clue = require("mini.clue")
 clue.setup({
+    window = { config = { width = "auto" } },
     triggers = {
         { mode = "n", keys = "g" },
         { mode = "x", keys = "g" },
