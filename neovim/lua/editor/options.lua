@@ -1,6 +1,7 @@
 local o = vim.o
 
 o.number = true
+o.signcolumn = "yes"
 o.tabstop = 4
 o.shiftwidth = 4
 o.expandtab = true

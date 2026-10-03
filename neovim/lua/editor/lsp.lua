@@ -4,17 +4,22 @@ local nix = require("editor.nix")
 
 local severity = vim.diagnostic.severity
 
+local sign = {
+    [severity.ERROR] = vim.fn.nr2char(0xf057),
+    [severity.WARN] = vim.fn.nr2char(0xf071),
+    [severity.INFO] = vim.fn.nr2char(0xf05a),
+    [severity.HINT] = vim.fn.nr2char(0xf0eb),
+}
+
 vim.diagnostic.config({
-    virtual_text = { prefix = "" },
-    severity_sort = true,
-    signs = {
-        text = {
-            [severity.ERROR] = vim.fn.nr2char(0xf057),
-            [severity.WARN] = vim.fn.nr2char(0xf071),
-            [severity.INFO] = vim.fn.nr2char(0xf05a),
-            [severity.HINT] = vim.fn.nr2char(0xf0eb),
-        },
+    virtual_text = {
+        spacing = 2,
+        prefix = function()
+            return "●"
+        end,
     },
+    severity_sort = true,
+    signs = { text = sign },
 })
 
 vim.lsp.config("*", { capabilities = require("mini.completion").get_lsp_capabilities() })

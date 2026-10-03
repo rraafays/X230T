@@ -1,6 +1,12 @@
 require("mini.icons").setup()
-require("mini.statusline").setup()
-require("mini.diff").setup()
+require("mini.git").setup()
+require("mini.diff").setup({
+    view = {
+        style = "sign",
+        signs = { add = "▎", change = "▎", delete = "▎" },
+    },
+})
+require("mini.statusline").setup({ use_icons = true })
 require("mini.surround").setup()
 require("mini.completion").setup()
 
