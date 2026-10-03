@@ -124,13 +124,13 @@ in
       collision # hash checker
       constrict # video compressor
       crosspipe # av io graph
+      cursor-cli # ai agent
       curtail # image compressor
       dialect # translator
       eartag # tag editor
       eyedropper # colorpicker
       fragments # torrent client
       fretboard # guitar chords
-      github-copilot-cli # ai agent
       gnome-boxes # virtual machines
       gnome-mahjongg # mahjong
       gnome-obfuscate # censor & redact
