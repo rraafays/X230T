@@ -130,6 +130,7 @@ in
       eyedropper # colorpicker
       fragments # torrent client
       fretboard # guitar chords
+      github-copilot-cli # ai agent
       gnome-boxes # virtual machines
       gnome-mahjongg # mahjong
       gnome-obfuscate # censor & redact
