@@ -4,6 +4,10 @@ require("mini.diff").setup()
 require("mini.surround").setup()
 require("mini.completion").setup()
 
+local notify = require("mini.notify")
+notify.setup()
+vim.notify = notify.make_notify()
+
 local ai = require("mini.ai")
 ai.setup({
     custom_textobjects = {

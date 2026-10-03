@@ -46,6 +46,8 @@ local function provide(exe, callback)
     end
 
     waiting[exe] = { callback }
+    local notify = require("mini.notify")
+    local id = notify.add(("Fetching %s from nixpkgs"):format(attr), "INFO")
     vim.system(
         { "nix-build", vim.g.nixpkgs_path, "-A", attr, "--no-out-link" },
         { text = true },
@@ -56,7 +58,12 @@ local function provide(exe, callback)
             local path = result.code == 0 and locate(result.stdout, exe) or nil
             if path then
                 resolved[exe] = path
+                notify.update(id, { msg = ("Fetched %s from nixpkgs"):format(attr) })
+                vim.defer_fn(function()
+                    notify.remove(id)
+                end, 1500)
             else
+                notify.remove(id)
                 vim.notify(("editor: could not fetch %s from nixpkgs"):format(attr), vim.log.levels.WARN)
             end
             run(callbacks, path)
@@ -64,7 +71,7 @@ local function provide(exe, callback)
     )
 end
 
-local function expose(path)
+function M.expose(path)
     local dir = vim.fs.dirname(path)
     if dir ~= "." and not vim.env.PATH:find(dir, 1, true) then
         vim.env.PATH = vim.env.PATH .. ":" .. dir
@@ -85,7 +92,7 @@ function M.ensure(exe, callback)
                 return
             end
             if index < #queue then
-                expose(path)
+                M.expose(path)
                 return step(index + 1)
             end
             callback(path)

@@ -107,10 +107,8 @@ local function enable(name, explicit)
             return
         end
         enabled[name] = true
-        if path ~= cmd[1] then
-            local patched = vim.deepcopy(cmd)
-            patched[1] = path
-            vim.lsp.config(name, { cmd = patched })
+        if vim.fn.executable(cmd[1]) == 0 then
+            nix.expose(path)
         end
         vim.lsp.enable(name)
     end)
