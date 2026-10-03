@@ -115,45 +115,40 @@ in
       nerd-fonts.symbols-only
 
       # applications
-      amberol
-      apostrophe
-      audio-sharing
-      blanket
-      bottles
-      cine
-      collision
-      constrict
-      crosspipe
-      curtail
-      dconf2nix
-      decoder
-      deja-dup
-      dialect
-      eartag
-      eyedropper
-      firefox
-      firefox-gnome-theme
-      fragments
-      fretboard
-      gnome-boxes
-      gnome-mahjongg
-      gnome-obfuscate
-      impression
-      junction
-      mpv
-      nootka
-      paper-clip
-      pika-backup
-      pwvucontrol
-      rawtherapee
-      rockbox-utility
-      switcheroo
-      tangram
-      tuxguitar
-      valuta
-      video-trimmer
-      wechat
-      gnomeExtensions.audio-switch-shortcuts
+      amberol # music player
+      apostrophe # markdown editor
+      audio-sharing # share audio
+      blanket # ambient noise
+      bottles # windows compatibility
+      cine # video player
+      collision # hash checker
+      constrict # video compressor
+      crosspipe # av io graph
+      curtail # image compressor
+      dialect # translator
+      eartag # tag editor
+      eyedropper # colorpicker
+      fragments # torrent client
+      fretboard # guitar chords
+      gnome-boxes # virtual machines
+      gnome-mahjongg # mahjong
+      gnome-obfuscate # censor & redact
+      gnomeExtensions.audio-switch-shortcuts # audio switcher
+      impression # create bootable drive
+      junction # open with selector
+      mpv # video player
+      nootka # learn guitar notes
+      paper-clip # pdf viewer
+      pika-backup # backups
+      pwvucontrol # audio levels
+      rawtherapee # raw editor
+      rockbox-utility # ipod custom firmware
+      switcheroo # image rotate & resize
+      tuxguitar # guitar sheet music editor
+      ungoogled-chromium # web browser
+      valuta # currency converter
+      video-trimmer # video trimmer
+      wechat # wechat messenger
     ];
   };
 }

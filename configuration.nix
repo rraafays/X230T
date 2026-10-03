@@ -99,6 +99,7 @@ in
     enableAllTerminfo = true;
     systemPackages = with pkgs; [
       nix-search
+      dconf2nix
     ];
     gnome.excludePackages = with pkgs; [
       gnome-tour
