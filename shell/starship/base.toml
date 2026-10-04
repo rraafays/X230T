@@ -1,0 +1,130 @@
+"$schema" = 'https://starship.rs/config-schema.json'
+
+add_newline = false
+format = "$status$username$hostname$battery$directory$git_branch$git_metrics$git_status$custom$nix_shell$all$character"
+
+[custom.unused_nix_shell]
+style = "bold #484f58"
+when = "test -e shell.nix || test -e flake.nix && ! test $IN_NIX_SHELL"
+shell = "sh"
+format = "[ ]($style) "
+
+[battery]
+disabled = true
+unknown_symbol = '󱐥 '
+
+[[battery.display]]
+threshold = 0
+discharging_symbol = '  '
+charging_symbol = '󱐋 '
+style = 'fg:8'
+[[battery.display]]
+threshold = 25
+discharging_symbol = '  '
+charging_symbol = '󱐋 '
+style = 'fg:8'
+[[battery.display]]
+threshold = 50
+discharging_symbol = '  '
+charging_symbol = '󱐋 '
+style = 'fg:8'
+[[battery.display]]
+threshold = 75
+discharging_symbol = '  '
+charging_symbol = '󱐋 '
+style = 'fg:8'
+[[battery.display]]
+threshold = 100
+discharging_symbol = '  '
+charging_symbol = '󱐋 '
+style = 'fg:8'
+
+[line_break]
+disabled = true
+
+[directory]
+style = "bold fg:4"
+read_only = "  "
+read_only_style = "bold fg:7"
+truncation_length = 3
+
+[cmd_duration]
+disabled = false
+min_time = 3000
+format = "[$duration]($style) "
+
+[git_metrics]
+disabled = false
+
+[git_branch]
+format = '[$symbol$branch(:$remote_branch)]($style) '
+truncation_symbol = ""
+
+[status]
+disabled = false
+format = '[$symbol](bold bg:9 bold fg:#000000)[ $status](bold bg:#000000 bold fg:9) '
+style = 'bold fg:9'
+map_symbol = true
+pipestatus = true
+symbol = ' ERROR '
+not_executable_symbol = ' FAIL '
+not_found_symbol = ' ERROR '
+sigint_symbol = ' DEBUG '
+signal_symbol = ' FATAL '
+pipestatus_format = '\[$pipestatus\] => [$symbol$common_meaning$signal_name$maybe_int]($style) '
+pipestatus_segment_format = '[$symbol$status]($style)'
+
+[nix_shell]
+symbol = " "
+format = '[$symbol]($style) '
+style = 'fg:6'
+
+[bun]
+symbol = ' '
+style = 'bold fg:15'
+format = '[$symbol($version)]($style) '
+[c]
+symbol = " "
+style = 'bold fg:7'
+format = '[$symbol($version(-$name))]($style) '
+[dotnet]
+symbol = ' '
+style = 'bold fg:5'
+format = '[$symbol($version)($tfm)]($style) '
+[gradle]
+symbol = " "
+style = 'bold fg:6'
+format = '[$symbol($version)]($style) '
+[java]
+symbol = " "
+style = 'bold fg:1'
+format = '[$symbol($version)]($style) '
+[lua]
+symbol = " "
+style = 'bold fg:4'
+format = '[$symbol($version)]($style) '
+[nodejs]
+symbol = " "
+style = 'bold fg:2'
+format = '[$symbol($version)]($style) '
+[python]
+symbol = " "
+style = 'bold fg:3'
+format = '[${symbol}${pyenv_prefix}(${version})(\($virtualenv\))]($style) '
+[rust]
+symbol = " "
+style = 'bold fg:1'
+format = '[$symbol($version)]($style) '
+[docker_context]
+symbol = " "
+style = 'bold fg:4'
+format = '[$symbol($context)]($style) '
+[aws]
+disabled = true
+style = 'bold fg:3'
+symbol = 'aws '
+format = '[$symbol($profile ) (\[$region\] )]($style)'
+[package]
+symbol = " "
+style = 'bold fg:11'
+format = '[$symbol$version]($style) '

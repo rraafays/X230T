@@ -5,7 +5,7 @@
 }:
 let
   config = pkgs.vimUtils.buildVimPlugin {
-    pname = "neovim-config";
+    pname = "editor-config";
     version = "0";
     src = lib.fileset.toSource {
       root = ./.;

@@ -1,0 +1,16 @@
+[username]
+disabled = true
+
+[hostname]
+ssh_only = false
+format = "[$hostname ]($style)"
+style = "bold fg:9"
+disabled = false
+
+[character]
+success_symbol = "[#](bold fg:4)"
+error_symbol = "[#](bold fg:4)"
+vimcmd_symbol = "[#](bold #484f58)"
+vimcmd_replace_one_symbol = "[#](bold fg:9)"
+vimcmd_replace_symbol = "[#](bold fg:9)"
+vimcmd_visual_symbol = "[#](bold #d29922)"

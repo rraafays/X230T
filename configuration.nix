@@ -9,8 +9,11 @@ in
     "${home-manager}/nixos"
     ./user.nix
     ./hardware-configuration.nix
-    ./neovim
-    ./keyboard.nix
+    ./editor
+    ./shell
+    ./terminal
+    ./keyboard
+    ./desktop
   ];
 
   nix.settings.auto-optimise-store = true;
@@ -77,9 +80,6 @@ in
 
   services = {
     openssh.enable = true;
-    displayManager.gdm.enable = true;
-    desktopManager.gnome.enable = true;
-    gnome.sushi.enable = true;
     libinput.enable = true;
     printing.enable = true;
     pulseaudio.enable = false;
@@ -89,10 +89,6 @@ in
       alsa.support32Bit = true;
       pulse.enable = true;
     };
-    xserver.xkb = {
-      layout = "us";
-      variant = "";
-    };
   };
 
   environment = {
@@ -100,14 +96,6 @@ in
     systemPackages = with pkgs; [
       nix-search
       dconf2nix
-    ];
-    gnome.excludePackages = with pkgs; [
-      gnome-tour
-      gnome-user-docs
-      gnome-music
-      showtime
-      epiphany
-      gnome-console
     ];
     sessionVariables = {
       MESA_GL_VERSION_OVERRIDE = "4.3";
