@@ -1,8 +1,79 @@
 local tools = require("editor.tools")
 local overrides = require("editor.overrides")
 local nix = require("editor.nix")
+local notify = require("mini.notify")
 
 local severity = vim.diagnostic.severity
+
+local init_progress = {}
+
+local function mark_lsp_ready(client)
+    if client._editor_ready then
+        return
+    end
+    client._editor_ready = true
+
+    local progress_id = init_progress[client.id]
+    if progress_id then
+        notify.remove(progress_id)
+        init_progress[client.id] = nil
+    end
+
+    local id = notify.add(("%s initialized"):format(client.name), "INFO")
+    vim.defer_fn(function()
+        notify.remove(id)
+    end, 1500)
+end
+
+local default_progress = vim.lsp.handlers["$/progress"]
+vim.lsp.handlers["$/progress"] = function(err, result, ctx, config)
+    default_progress(err, result, ctx, config)
+    if err or type(result) ~= "table" or type(result.value) ~= "table" then
+        return
+    end
+
+    local client = vim.lsp.get_client_by_id(ctx.client_id)
+    if not client or client._editor_ready then
+        return
+    end
+
+    local value = result.value
+    local info = init_progress[client.id .. "_info"] or { title = "", pct = 0 }
+    if value.kind == "begin" and value.title then
+        info.title = value.title
+    end
+    info.pct = (value.kind == "end" and 100 or value.percentage) or info.pct
+    init_progress[client.id .. "_info"] = info
+
+    local msg = string.format(
+        "%s: %s%s%s(%s%%)",
+        client.name,
+        info.title,
+        info.title == "" and "" or " ",
+        value.message or "",
+        info.pct
+    )
+
+    local notif_id = init_progress[client.id]
+    if notif_id then
+        notify.update(notif_id, { msg = msg })
+    else
+        init_progress[client.id] = notify.add(msg, "INFO", "MiniNotifyLspProgress")
+    end
+
+    if value.kind == "end" then
+        init_progress[client.id .. "_info"] = nil
+    end
+end
+
+local default_show_message = vim.lsp.handlers["window/showMessage"]
+vim.lsp.handlers["window/showMessage"] = function(err, params, ctx, config)
+    local level = vim.lsp.protocol.MessageType
+    if params.type ~= level.Error and params.type ~= level.Warning then
+        return params
+    end
+    return default_show_message(err, params, ctx, config)
+end
 
 local sign = {
     [severity.ERROR] = vim.fn.nr2char(0xf057),
@@ -22,10 +93,16 @@ vim.diagnostic.config({
     signs = { text = sign },
 })
 
-vim.lsp.config("*", { capabilities = require("mini.completion").get_lsp_capabilities() })
+vim.lsp.config("*", {
+    capabilities = require("mini.completion").get_lsp_capabilities(),
+    on_init = function(client)
+        mark_lsp_ready(client)
+    end,
+})
 
 vim.lsp.config("lua_ls", {
     on_init = function(client)
+        mark_lsp_ready(client)
         local folder = client.workspace_folders and client.workspace_folders[1]
         local root = folder and folder.name
         if root and (vim.uv.fs_stat(root .. "/.luarc.json") or vim.uv.fs_stat(root .. "/.luarc.jsonc")) then
@@ -40,6 +117,8 @@ vim.lsp.config("lua_ls", {
         client:notify("workspace/didChangeConfiguration", { settings = client.config.settings })
     end,
 })
+
+require("editor.java").configure_lsp()
 
 for name, config in pairs(overrides.lsp_config) do
     vim.lsp.config(name, config)

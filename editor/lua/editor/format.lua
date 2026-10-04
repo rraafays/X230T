@@ -3,6 +3,8 @@ local tools = require("editor.tools")
 local overrides = require("editor.overrides")
 local nix = require("editor.nix")
 
+local INDENT = 4
+
 local by_ft = vim.tbl_extend("force", tools.formatters, overrides.formatters)
 
 local function base_command(name, config, ctx)
@@ -11,6 +13,27 @@ local function base_command(name, config, ctx)
         command = command(config, ctx)
     end
     return command
+end
+
+local function has_project_config(dirname, markers)
+    return vim.fs.root(dirname, markers) ~= nil
+end
+
+local rubocop_config_path
+local function default_rubocop_config()
+    if rubocop_config_path and vim.fn.filereadable(rubocop_config_path) == 1 then
+        return rubocop_config_path
+    end
+    rubocop_config_path = vim.fn.stdpath("cache") .. "/editor-rubocop-4space.yml"
+    if vim.fn.filereadable(rubocop_config_path) == 0 then
+        vim.fn.writefile({
+            "AllCops:",
+            "  NewCops: enable",
+            "Layout/IndentationWidth:",
+            "  Width: 4",
+        }, rubocop_config_path)
+    end
+    return rubocop_config_path
 end
 
 local configs = {}
@@ -29,16 +52,78 @@ end
 
 configs.stylua = vim.tbl_extend("force", configs.stylua or {}, {
     prepend_args = function(_, ctx)
-        if vim.fs.root(ctx.dirname, { ".stylua.toml", "stylua.toml", ".editorconfig" }) then
+        if has_project_config(ctx.dirname, { ".stylua.toml", "stylua.toml", ".editorconfig" }) then
             return {}
         end
-        local buf = ctx.buf
-        return {
-            "--indent-type",
-            vim.bo[buf].expandtab and "Spaces" or "Tabs",
-            "--indent-width",
-            tostring(vim.api.nvim_buf_call(buf, vim.fn.shiftwidth)),
-        }
+        return { "--indent-type", "Spaces", "--indent-width", tostring(INDENT) }
+    end,
+})
+
+configs.prettier = vim.tbl_extend("force", configs.prettier or {}, {
+    prepend_args = function(_, ctx)
+        if has_project_config(ctx.dirname, {
+            ".prettierrc",
+            ".prettierrc.json",
+            ".prettierrc.yaml",
+            ".prettierrc.yml",
+            "prettier.config.js",
+            "prettier.config.cjs",
+            "prettier.config.mjs",
+        }) then
+            return {}
+        end
+        return { "--tab-width", tostring(INDENT), "--use-tabs", "false" }
+    end,
+})
+
+configs["google-java-format"] = vim.tbl_extend("force", configs["google-java-format"] or {}, {
+    prepend_args = { "--aosp" },
+})
+
+configs["clang-format"] = vim.tbl_extend("force", configs["clang-format"] or {}, {
+    prepend_args = function(_, ctx)
+        if has_project_config(ctx.dirname, { ".clang-format", "_clang-format" }) then
+            return {}
+        end
+        local style = string.format("{IndentWidth: %d, TabWidth: %d, UseTab: Never}", INDENT, INDENT)
+        return { "-style", style }
+    end,
+})
+
+configs.ruff_format = vim.tbl_extend("force", configs.ruff_format or {}, {
+    prepend_args = function(_, ctx)
+        if has_project_config(ctx.dirname, { "pyproject.toml", "ruff.toml", ".ruff.toml" }) then
+            return {}
+        end
+        return { "--config", string.format("indent-width=%d", INDENT) }
+    end,
+})
+
+configs.taplo = vim.tbl_extend("force", configs.taplo or {}, {
+    prepend_args = function(_, ctx)
+        if has_project_config(ctx.dirname, { "taplo.toml", ".taplo.toml" }) then
+            return {}
+        end
+        return { "--option", "indent_string=" .. string.rep(" ", INDENT) }
+    end,
+})
+
+configs.shfmt = vim.tbl_extend("force", configs.shfmt or {}, {
+    args = function(_, ctx)
+        local args = { "-filename", "$FILENAME" }
+        if not has_project_config(ctx.dirname, { ".editorconfig" }) then
+            vim.list_extend(args, { "-i", tostring(INDENT) })
+        end
+        return args
+    end,
+})
+
+configs.rubocop = vim.tbl_extend("force", configs.rubocop or {}, {
+    prepend_args = function(_, ctx)
+        if has_project_config(ctx.dirname, { ".rubocop.yml", ".rubocop.yaml" }) then
+            return {}
+        end
+        return { "--config", default_rubocop_config() }
     end,
 })
 
