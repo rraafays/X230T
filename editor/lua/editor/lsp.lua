@@ -84,6 +84,7 @@ local sign = {
 
 vim.diagnostic.config({
     virtual_text = {
+        current_line = false,
         spacing = 2,
         prefix = function()
             return "●"
@@ -93,8 +94,13 @@ vim.diagnostic.config({
     signs = { text = sign },
 })
 
+local lsp_capabilities = require("mini.completion").get_lsp_capabilities({
+    resolve_additional_text_edits = false,
+})
+lsp_capabilities.textDocument.completion.completionItem.snippetSupport = false
+
 vim.lsp.config("*", {
-    capabilities = require("mini.completion").get_lsp_capabilities(),
+    capabilities = lsp_capabilities,
     on_init = function(client)
         mark_lsp_ready(client)
     end,
