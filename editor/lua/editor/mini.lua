@@ -8,6 +8,7 @@ require("mini.diff").setup({
 })
 require("mini.statusline").setup({ use_icons = true })
 require("mini.surround").setup()
+require("mini.snippets").setup()
 require("mini.completion").setup()
 
 local notify = require("mini.notify")
@@ -75,7 +76,53 @@ vim.keymap.set("n", "<M-e>", function()
 end)
 
 local mini_pairs = require("mini.pairs")
+local mini_snippets = require("mini.snippets")
 mini_pairs.setup()
+
+local function snippet_session()
+    return mini_snippets.session.get()
+end
+
+local function cr_action()
+    if vim.fn.complete_info({ "selected" }).selected ~= -1 then
+        return "\25"
+    end
+    if snippet_session() then
+        mini_snippets.session.jump("next")
+        return ""
+    end
+    if vim.fn.pumvisible() == 1 then
+        return "\27"
+    end
+    return mini_pairs.cr()
+end
+
+local ctrl_n = vim.api.nvim_replace_termcodes("<C-n>", true, false, true)
+local ctrl_p = vim.api.nvim_replace_termcodes("<C-p>", true, false, true)
+
+local function tab_action()
+    if snippet_session() then
+        mini_snippets.session.jump("next")
+        return ""
+    end
+    if vim.snippet.active({ direction = 1 }) then
+        vim.snippet.jump(1)
+        return ""
+    end
+    return vim.fn.pumvisible() == 1 and ctrl_n or "\t"
+end
+
+local function stab_action()
+    if snippet_session() then
+        mini_snippets.session.jump("prev")
+        return ""
+    end
+    if vim.snippet.active({ direction = -1 }) then
+        vim.snippet.jump(-1)
+        return ""
+    end
+    return vim.fn.pumvisible() == 1 and ctrl_p or "\t"
+end
 
 local function around(before, after)
     local col = vim.api.nvim_win_get_cursor(0)[2]
@@ -97,20 +144,29 @@ vim.keymap.set("i", "<BS>", function()
     return mini_pairs.bs()
 end, { expr = true, replace_keycodes = false })
 
-vim.keymap.set("i", "<CR>", function()
-    if vim.fn.pumvisible() == 0 then
-        return mini_pairs.cr()
-    end
-    if vim.fn.complete_info({ "selected" }).selected ~= -1 then
-        return vim.keycode("<C-y>")
-    end
-    return vim.keycode("<C-e>") .. mini_pairs.cr()
-end, { expr = true, replace_keycodes = false })
+_G.editor_cr_action = cr_action
+vim.keymap.set("i", "<CR>", "v:lua.editor_cr_action()", { expr = true })
 
-vim.keymap.set("i", "<Tab>", function()
-    return vim.fn.pumvisible() == 1 and "<C-n>" or "<Tab>"
+vim.keymap.set({ "i", "s" }, "<Tab>", function()
+    return tab_action()
 end, { expr = true })
 
-vim.keymap.set("i", "<S-Tab>", function()
-    return vim.fn.pumvisible() == 1 and "<C-p>" or "<S-Tab>"
+vim.keymap.set({ "i", "s" }, "<S-Tab>", function()
+    return stab_action()
 end, { expr = true })
+
+vim.keymap.set("s", "<CR>", "v:lua.editor_cr_action()", { expr = true })
+
+vim.api.nvim_create_autocmd("CompleteDone", {
+    callback = function()
+        vim.schedule(function()
+            if snippet_session() or vim.snippet.active() then
+                return
+            end
+            if vim.fn.mode() == "s" then
+                vim.cmd.stopinsert()
+                vim.cmd.startinsert(true)
+            end
+        end)
+    end,
+})
