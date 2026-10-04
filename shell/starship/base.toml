@@ -45,20 +45,30 @@ disabled = true
 [directory]
 style = "bold fg:4"
 read_only = "  "
-read_only_style = "bold fg:7"
+read_only_style = "bold fg:15"
 truncation_length = 3
 
 [cmd_duration]
 disabled = false
 min_time = 3000
 format = "[$duration]($style) "
+style = "bold fg:11"
 
 [git_metrics]
 disabled = false
+added_style = "bold fg:10"
+deleted_style = "bold fg:9"
 
 [git_branch]
 format = '[$symbol$branch(:$remote_branch)]($style) '
 truncation_symbol = ""
+style = "bold fg:13"
+
+[git_status]
+style = "bold fg:9"
+
+[git_state]
+style = "bold fg:11"
 
 [status]
 disabled = false
@@ -77,7 +87,7 @@ pipestatus_segment_format = '[$symbol$status]($style)'
 [nix_shell]
 symbol = " "
 format = '[$symbol]($style) '
-style = 'fg:6'
+style = 'bold fg:14'
 
 [bun]
 symbol = ' '
@@ -85,43 +95,43 @@ style = 'bold fg:15'
 format = '[$symbol($version)]($style) '
 [c]
 symbol = " "
-style = 'bold fg:7'
+style = 'bold fg:15'
 format = '[$symbol($version(-$name))]($style) '
 [dotnet]
 symbol = ' '
-style = 'bold fg:5'
+style = 'bold fg:13'
 format = '[$symbol($version)($tfm)]($style) '
 [gradle]
 symbol = " "
-style = 'bold fg:6'
+style = 'bold fg:14'
 format = '[$symbol($version)]($style) '
 [java]
 symbol = " "
-style = 'bold fg:1'
+style = 'bold fg:9'
 format = '[$symbol($version)]($style) '
 [lua]
 symbol = " "
-style = 'bold fg:4'
+style = 'bold fg:12'
 format = '[$symbol($version)]($style) '
 [nodejs]
 symbol = " "
-style = 'bold fg:2'
+style = 'bold fg:10'
 format = '[$symbol($version)]($style) '
 [python]
 symbol = " "
-style = 'bold fg:3'
+style = 'bold fg:11'
 format = '[${symbol}${pyenv_prefix}(${version})(\($virtualenv\))]($style) '
 [rust]
 symbol = " "
-style = 'bold fg:1'
+style = 'bold fg:9'
 format = '[$symbol($version)]($style) '
 [docker_context]
 symbol = " "
-style = 'bold fg:4'
+style = 'bold fg:12'
 format = '[$symbol($context)]($style) '
 [aws]
 disabled = true
-style = 'bold fg:3'
+style = 'bold fg:11'
 symbol = 'aws '
 format = '[$symbol($profile ) (\[$region\] )]($style)'
 [package]
