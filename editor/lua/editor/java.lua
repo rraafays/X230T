@@ -37,7 +37,6 @@ function M.configure_lsp()
         completion = {
           enabled = true,
           importOrder = { "", "javax", "java", "#" },
-          overwrite = true,
         },
         sources = {
           organizeImports = {
