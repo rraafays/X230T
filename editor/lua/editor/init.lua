@@ -1,5 +1,6 @@
 require("editor.options")
 require("editor.treesitter")
+require("editor.tmux")
 require("editor.mini")
 require("editor.colors")
 require("editor.lsp")

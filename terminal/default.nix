@@ -30,6 +30,10 @@ in
           set -s set-clipboard external
           set -g status off
           set -g status-keys emacs
+          set-option -g focus-events on
+          set -s extended-keys on
+          set -s extended-keys-format xterm
+          set -g user-keys on
 
           bind -n M-Escape copy-mode
           bind -n M-Enter run "tmux setenv PREVIOUS_DIR '#{pane_current_path}'; [[ $(($(tmux display -p '8*#{pane_width}-20*#{pane_height}'))) -lt 0 ]] \
@@ -44,6 +48,12 @@ in
           bind -T copy-mode-vi M-Down select-pane -D 
           bind -T copy-mode-vi M-Up select-pane -U   
           bind -T copy-mode-vi M-Right select-pane -R
+
+          # Neovim sets @vim on the pane (editor/lua/editor/tmux.lua).
+          bind-key -n 'M-Left' if-shell -F '#{@vim}' 'send-keys M-Left' 'select-pane -L'
+          bind-key -n 'M-Down' if-shell -F '#{@vim}' 'send-keys M-Down' 'select-pane -D'
+          bind-key -n 'M-Up' if-shell -F '#{@vim}' 'send-keys M-Up' 'select-pane -U'
+          bind-key -n 'M-Right' if-shell -F '#{@vim}' 'send-keys M-Right' 'select-pane -R'
         '';
       };
     };
