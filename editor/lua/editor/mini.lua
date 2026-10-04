@@ -7,7 +7,6 @@ require("mini.diff").setup({
     },
 })
 require("mini.statusline").setup({ use_icons = true })
-require("mini.surround").setup()
 require("mini.snippets").setup({
     mappings = { expand = "", jump_next = "<C-l>", jump_prev = "<C-h>" },
 })
