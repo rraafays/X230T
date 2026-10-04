@@ -9,9 +9,6 @@ require("mini.diff").setup({
 require("mini.statusline").setup({ use_icons = true })
 require("mini.surround").setup()
 
-vim.o.completeopt = "menuone,noselect,fuzzy"
-require("mini.completion").setup()
-
 local notify = require("mini.notify")
 notify.setup({ lsp_progress = { enable = false } })
 vim.notify = notify.make_notify()
@@ -76,47 +73,8 @@ vim.keymap.set("n", "<M-e>", function()
     files.open(vim.uv.fs_stat(name) and name or nil)
 end)
 
-local mini_pairs = require("mini.pairs")
-mini_pairs.setup()
-
-local ctrl_n = vim.api.nvim_replace_termcodes("<C-n>", true, false, true)
-local ctrl_p = vim.api.nvim_replace_termcodes("<C-p>", true, false, true)
-
-local function leave_snippet_select()
-    if vim.snippet.active() then
-        vim.snippet.stop()
-    end
-    local mode = vim.fn.mode()
-    if mode == "s" or mode == "S" or mode == "\22" then
-        vim.cmd.stopinsert()
-        vim.cmd.startinsert(true)
-    end
-end
-
-local function cr_action()
-    if vim.fn.pumvisible() == 1 then
-        return "\25"
-    end
-    return mini_pairs.cr()
-end
-
-_G.editor_cr_action = cr_action
-vim.keymap.set("i", "<CR>", "v:lua.editor_cr_action()", { expr = true })
-
-vim.keymap.set("i", "<Tab>", function()
-    return vim.fn.pumvisible() == 1 and ctrl_n or "\t"
-end, { expr = true })
-
-vim.keymap.set("i", "<S-Tab>", function()
-    local shift_tab = vim.api.nvim_replace_termcodes("<S-Tab>", true, false, true)
-    return vim.fn.pumvisible() == 1 and ctrl_p or shift_tab
-end, { expr = true })
-
-vim.api.nvim_create_autocmd("CompleteDone", {
-    callback = function()
-        vim.schedule(leave_snippet_select)
-    end,
-})
+require("mini.pairs").setup()
+require("editor.completion").setup()
 
 local function around(before, after)
     local col = vim.api.nvim_win_get_cursor(0)[2]
@@ -135,5 +93,5 @@ vim.keymap.set("i", "<BS>", function()
     if around(2, 2) == "{ | }" then
         return vim.keycode("<BS><Del>")
     end
-    return mini_pairs.bs()
+    return require("mini.pairs").bs()
 end, { expr = true, replace_keycodes = false })

@@ -95,9 +95,8 @@ vim.diagnostic.config({
 })
 
 local lsp_capabilities = require("mini.completion").get_lsp_capabilities({
-    resolve_additional_text_edits = false,
+    resolve_additional_text_edits = true,
 })
-lsp_capabilities.textDocument.completion.completionItem.snippetSupport = false
 
 vim.lsp.config("*", {
     capabilities = lsp_capabilities,
