@@ -6,24 +6,7 @@ in
 {
   home-manager = {
     backupFileExtension = "old";
-    users.${USER} = {
-      programs = {
-        gh.enable = true;
-        git = {
-          enable = true;
-          settings = {
-            user = {
-              name = "${USER}";
-              email = "rraf@tuta.io";
-            };
-          };
-        };
-      };
-      home = {
-        shell.enableFishIntegration = true;
-        stateVersion = "26.05";
-      };
-    };
+    users.${USER} = import ./home-manager.nix;
   };
 
   users.users.${USER} = {

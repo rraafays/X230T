@@ -7,13 +7,13 @@ in
 {
   imports = [
     "${home-manager}/nixos"
-    ./user.nix
     ./hardware-configuration.nix
+    ./desktop
     ./editor
+    ./keyboard
     ./shell
     ./terminal
-    ./keyboard
-    ./desktop
+    ./user
   ];
 
   nix.settings.auto-optimise-store = true;
@@ -95,7 +95,6 @@ in
     enableAllTerminfo = true;
     systemPackages = with pkgs; [
       nix-search
-      dconf2nix
     ];
     sessionVariables = {
       MESA_GL_VERSION_OVERRIDE = "4.3";
