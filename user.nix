@@ -54,6 +54,7 @@ in
       gnome-boxes
       gnome-mahjongg
       gnome-obfuscate
+      gnome-sound-recorder
       gnomeExtensions.audio-switch-shortcuts
       impression
       junction
