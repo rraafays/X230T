@@ -1,0 +1,267 @@
+# All Starship language/version modules (icon + version). Hex from linguist colors.json.
+
+[package]
+format = '[$symbol$version]($style) '
+symbol = '󰏗 '
+style = 'bold fg:3'
+
+[buf]
+format = '[$symbol($version)]($style) '
+symbol = ' '
+style = 'bold #519aba'
+
+[bun]
+format = '[$symbol($version)]($style) '
+symbol = ' '
+style = 'bold #f1e05a'
+
+[c]
+format = '[$symbol($version(-$name))]($style) '
+symbol = ' '
+style = 'bold #555555'
+
+[cmake]
+format = '[$symbol($version)]($style) '
+symbol = ' '
+style = 'bold #da3434'
+
+[cobol]
+format = '[$symbol($version)]($style) '
+symbol = ' '
+style = 'bold fg:8'
+
+[cpp]
+format = '[$symbol($version(-$name))]($style) '
+symbol = ' '
+style = 'bold #f34b7d'
+
+[crystal]
+format = '[$symbol($version)]($style) '
+symbol = ' '
+style = 'bold #000100'
+
+[daml]
+format = '[$symbol($version)]($style) '
+symbol = ' '
+style = 'bold fg:8'
+
+[dart]
+format = '[$symbol($version)]($style) '
+symbol = ' '
+style = 'bold #00b4ab'
+
+[deno]
+format = '[$symbol($version)]($style) '
+symbol = ' '
+style = 'bold #3178c6'
+
+[dotnet]
+format = '[$symbol($version)($tfm)]($style) '
+symbol = ' '
+style = 'bold #7355dd'
+
+[elixir]
+format = '[$symbol($version (OTP $otp_version))]($style) '
+symbol = ' '
+style = 'bold #8847b9'
+
+[elm]
+format = '[$symbol($version)]($style) '
+symbol = ' '
+style = 'bold #60b5cc'
+
+[erlang]
+format = '[$symbol($version)]($style) '
+symbol = ' '
+style = 'bold #b83998'
+
+[fennel]
+format = '[$symbol($version)]($style) '
+symbol = ' '
+style = 'bold #fff3d7'
+
+[fortran]
+format = '[$symbol($version(-$name))]($style) '
+symbol = ' '
+style = 'bold #4d41b1'
+
+[gleam]
+format = '[$symbol($version)]($style) '
+symbol = ' '
+style = 'bold #ffaff3'
+
+[golang]
+format = '[$symbol($version)]($style) '
+symbol = ' '
+style = 'bold #00add8'
+
+[gradle]
+format = '[$symbol($version)]($style) '
+symbol = ' '
+style = 'bold #02303a'
+
+[haskell]
+format = '[$symbol($version)]($style) '
+symbol = ' '
+style = 'bold #5e5086'
+
+[haxe]
+format = '[$symbol($version)]($style) '
+symbol = ' '
+style = 'bold #df7900'
+
+[helm]
+format = '[$symbol($version)]($style) '
+symbol = ' '
+style = 'bold #f0c040'
+
+[java]
+format = '[$symbol($version)]($style) '
+symbol = ' '
+style = 'bold #b07219'
+
+[julia]
+format = '[$symbol($version)]($style) '
+symbol = ' '
+style = 'bold #a270ba'
+
+[kotlin]
+format = '[$symbol($version)]($style) '
+symbol = ' '
+style = 'bold #a97bff'
+
+[lua]
+format = '[$symbol($version)]($style) '
+symbol = ' '
+style = 'bold #000080'
+
+[maven]
+format = '[$symbol($version)]($style) '
+symbol = ' '
+style = 'bold #b07219'
+
+[nim]
+format = '[$symbol($version)]($style) '
+symbol = ' '
+style = 'bold #ffc200'
+
+[nodejs]
+format = '[$symbol($version)]($style) '
+symbol = ' '
+style = 'bold #f1e05a'
+
+[ocaml]
+format = '[$symbol($version)(\\($switch_indicator$switch_name\\))]($style) '
+symbol = ' '
+style = 'bold #ef7a08'
+
+[opa]
+format = '[$symbol($version)]($style) '
+symbol = ' '
+style = 'bold #7d9199'
+
+[perl]
+format = '[$symbol($version)]($style) '
+symbol = ' '
+style = 'bold #0298c3'
+
+[php]
+format = '[$symbol($version)]($style) '
+symbol = ' '
+style = 'bold #4f5d95'
+
+[pixi]
+format = '[$symbol($version)(\\($environment\\))]($style) '
+symbol = '󰏗 '
+style = 'bold #3572a5'
+
+[pulumi]
+format = '[$symbol($username@)$stack]($style) '
+symbol = ' '
+style = 'bold #844fba'
+
+[purescript]
+format = '[$symbol($version)]($style) '
+symbol = ' '
+style = 'bold #1d222d'
+
+[python]
+format = '[${symbol}${pyenv_prefix}(${version})(\\($virtualenv\\))]($style) '
+symbol = ' '
+style = 'bold #3572a5'
+
+[quarto]
+format = '[$symbol($version)]($style) '
+symbol = '󰟔 '
+style = 'bold #198ce7'
+
+[raku]
+format = '[$symbol($version-$vm_version)]($style) '
+symbol = '󱖊 '
+style = 'bold #0000fb'
+
+[red]
+format = '[$symbol($version)]($style) '
+symbol = '󱍼 '
+style = 'bold #f50000'
+
+[rlang]
+format = '[$symbol($version)]($style) '
+symbol = '󰟔 '
+style = 'bold #198ce7'
+
+[ruby]
+format = '[$symbol($version)]($style) '
+symbol = ' '
+style = 'bold #701516'
+
+[rust]
+format = '[$symbol($version)]($style) '
+symbol = '󱘗 '
+style = 'bold #dea584'
+
+[scala]
+format = '[$symbol($version)]($style) '
+symbol = ' '
+style = 'bold #c22d40'
+
+[solidity]
+format = '[$symbol($version)]($style) '
+symbol = ' '
+style = 'bold #aa6746'
+
+[swift]
+format = '[$symbol($version)]($style) '
+symbol = ' '
+style = 'bold #f05138'
+
+[terraform]
+format = '[$symbol$workspace]($style) '
+symbol = ' '
+style = 'bold #844fba'
+
+[typst]
+format = '[$symbol($version)]($style) '
+symbol = ' '
+style = 'bold #239dad'
+
+[vlang]
+format = '[$symbol($version)]($style) '
+symbol = ' '
+style = 'bold #4f87c4'
+
+[vagrant]
+format = '[$symbol($version)]($style) '
+symbol = ' '
+style = 'bold #701516'
+
+[xmake]
+format = '[$symbol($version)]($style) '
+symbol = ' '
+style = 'bold #22a079'
+
+[zig]
+format = '[$symbol($version)]($style) '
+symbol = ' '
+style = 'bold #ec915c'
+

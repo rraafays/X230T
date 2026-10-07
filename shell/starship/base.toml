@@ -4,40 +4,10 @@ add_newline = false
 format = "$status$username$hostname$battery$directory$git_branch$git_metrics$git_status$custom$nix_shell$all$character"
 
 [custom.unused_nix_shell]
-style = "bold #484f58"
+style = "bold fg:8"
 when = "test -e shell.nix || test -e flake.nix && ! test $IN_NIX_SHELL"
 shell = "sh"
 format = "[ ]($style) "
-
-[battery]
-disabled = true
-unknown_symbol = '󱐥 '
-
-[[battery.display]]
-threshold = 0
-discharging_symbol = '  '
-charging_symbol = '󱐋 '
-style = 'fg:8'
-[[battery.display]]
-threshold = 25
-discharging_symbol = '  '
-charging_symbol = '󱐋 '
-style = 'fg:8'
-[[battery.display]]
-threshold = 50
-discharging_symbol = '  '
-charging_symbol = '󱐋 '
-style = 'fg:8'
-[[battery.display]]
-threshold = 75
-discharging_symbol = '  '
-charging_symbol = '󱐋 '
-style = 'fg:8'
-[[battery.display]]
-threshold = 100
-discharging_symbol = '  '
-charging_symbol = '󱐋 '
-style = 'fg:8'
 
 [line_break]
 disabled = true
@@ -72,7 +42,7 @@ style = "bold fg:11"
 
 [status]
 disabled = false
-format = '[$symbol](bold bg:9 bold fg:#000000)[ $status](bold bg:#000000 bold fg:9) '
+format = '[$symbol](bold bg:9 bold fg:0)[ $status](bold bg:0 bold fg:9) '
 style = 'bold fg:9'
 map_symbol = true
 pipestatus = true
@@ -89,42 +59,6 @@ symbol = " "
 format = '[$symbol]($style) '
 style = 'bold fg:14'
 
-[bun]
-symbol = ' '
-style = 'bold fg:15'
-format = '[$symbol($version)]($style) '
-[c]
-symbol = " "
-style = 'bold fg:15'
-format = '[$symbol($version(-$name))]($style) '
-[dotnet]
-symbol = ' '
-style = 'bold fg:13'
-format = '[$symbol($version)($tfm)]($style) '
-[gradle]
-symbol = " "
-style = 'bold fg:14'
-format = '[$symbol($version)]($style) '
-[java]
-symbol = " "
-style = 'bold fg:9'
-format = '[$symbol($version)]($style) '
-[lua]
-symbol = " "
-style = 'bold fg:12'
-format = '[$symbol($version)]($style) '
-[nodejs]
-symbol = " "
-style = 'bold fg:10'
-format = '[$symbol($version)]($style) '
-[python]
-symbol = " "
-style = 'bold fg:11'
-format = '[${symbol}${pyenv_prefix}(${version})(\($virtualenv\))]($style) '
-[rust]
-symbol = " "
-style = 'bold fg:9'
-format = '[$symbol($version)]($style) '
 [docker_context]
 symbol = " "
 style = 'bold fg:12'
@@ -134,7 +68,3 @@ disabled = true
 style = 'bold fg:11'
 symbol = 'aws '
 format = '[$symbol($profile ) (\[$region\] )]($style)'
-[package]
-symbol = " "
-style = 'bold fg:11'
-format = '[$symbol$version]($style) '
