@@ -49,6 +49,7 @@ in
       rawtherapee
       rockbox-utility
       switcheroo
+      tor-browser
       tuxguitar
       ungoogled-chromium
       valuta
