@@ -15,13 +15,17 @@ let
   };
 in
 {
-  environment.systemPackages = with pkgs; [
-    nixd
-    nixfmt
-    lua-language-server
-    stylua
-    ripgrep
-  ];
+
+  environment = {
+    sessionVariables.MANPAGER = "nvim +Man!";
+    systemPackages = with pkgs; [
+      nixd
+      nixfmt
+      lua-language-server
+      stylua
+      ripgrep
+    ];
+  };
 
   programs.neovim = {
     enable = true;
