@@ -55,6 +55,10 @@ in
         nix-direnv.enable = true;
       };
     };
+    home.file.".config/direnv/direnv.toml".text = ''
+      [global]
+      warn_timeout = "0s"
+    '';
   };
 
   home-manager.users.root = {
