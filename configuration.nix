@@ -94,6 +94,7 @@ in
   environment = {
     enableAllTerminfo = true;
     systemPackages = with pkgs; [
+      fd
       nix-search
     ];
     sessionVariables = {
