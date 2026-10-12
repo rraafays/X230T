@@ -29,11 +29,13 @@ in
       crosspipe
       cursor-cli
       curtail
+      davinci-resolve
       dialect
       eartag
       eyedropper
       fragments
       fretboard
+      gimp3
       gnome-boxes
       gnome-mahjongg
       gnome-obfuscate
@@ -47,6 +49,7 @@ in
       pika-backup
       pwvucontrol
       rawtherapee
+      reaper
       rockbox-utility
       switcheroo
       tor-browser
