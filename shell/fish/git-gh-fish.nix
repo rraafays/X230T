@@ -36,50 +36,53 @@ let
     "help"
   ];
 
-  gitCmdsFile = pkgs.runCommand "git-short-cmd-list" {
-    nativeBuildInputs = [ pkgs.git ];
-  } ''
-    git --list-cmds=main,others,alias 2>/dev/null | sort -u > $out
-  '';
+  gitCmdsFile =
+    pkgs.runCommand "git-short-cmd-list"
+      {
+        nativeBuildInputs = [ pkgs.git ];
+      }
+      ''
+        git --list-cmds=main,others,alias 2>/dev/null | sort -u > $out
+      '';
 
-  ghCmdsFile = pkgs.runCommand "gh-short-cmd-list" {
-    nativeBuildInputs = [
-      pkgs.gh
-      pkgs.python3
-    ];
-  } ''
-    python3 <<'PY' > $out
-import re, subprocess
-out = []
-insec = False
-for line in subprocess.run(["gh", "--help"], capture_output=True, text=True).stdout.splitlines():
-    if line.endswith(" COMMANDS"):
-        insec = True
-        continue
-    if line == "HELP TOPICS":
-        break
-    if insec:
-        m = re.match(r"^\s+(\S+):", line)
-        if m:
-            out.append(m.group(1))
-print("\n".join(sorted(set(out))))
-PY
-  '';
+  ghCmdsFile =
+    pkgs.runCommand "gh-short-cmd-list"
+      {
+        nativeBuildInputs = [
+          pkgs.gh
+          pkgs.python3
+        ];
+      }
+      ''
+            python3 <<'PY' > $out
+        import re, subprocess
+        out = []
+        insec = False
+        for line in subprocess.run(["gh", "--help"], capture_output=True, text=True).stdout.splitlines():
+            if line.endswith(" COMMANDS"):
+                insec = True
+                continue
+            if line == "HELP TOPICS":
+                break
+            if insec:
+                m = re.match(r"^\s+(\S+):", line)
+                if m:
+                    out.append(m.group(1))
+        print("\n".join(sorted(set(out))))
+        PY
+      '';
 
   readLines = path: filter (l: l != "") (lib.splitString "\n" (lib.fileContents path));
 
   isSkipped = skip: cmd: lib.elem cmd fishReserved || lib.elem cmd skip;
 
-  gitNames =
-    unique (filter (cmd: !(isSkipped gitSkip cmd)) (readLines gitCmdsFile));
+  gitNames = unique (filter (cmd: !(isSkipped gitSkip cmd)) (readLines gitCmdsFile));
 
   ghNames =
     let
       taken = gitNames;
     in
-    unique (
-      filter (cmd: !(isSkipped ghSkip cmd) && !(lib.elem cmd taken)) (readLines ghCmdsFile)
-    );
+    unique (filter (cmd: !(isSkipped ghSkip cmd) && !(lib.elem cmd taken)) (readLines ghCmdsFile));
 
   extraNames = [
     "lg"
