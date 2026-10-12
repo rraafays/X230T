@@ -99,6 +99,7 @@ in
     sessionVariables = {
       MESA_GL_VERSION_OVERRIDE = "4.3";
       MESA_GLSL_VERSION_OVERRIDE = "430";
+      GOPATH = "$HOME/.go";
     };
   };
 
