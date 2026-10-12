@@ -3,6 +3,7 @@
 let
   USER = "raf";
   starshipConfigs = import ./starship { inherit pkgs lib; };
+  gitGhFish = import ./fish/git-gh-fish.nix { inherit lib; };
 in
 {
   programs.fish.enable = true;
@@ -14,6 +15,7 @@ in
       nerd-fonts.symbols-only
     ];
     home.file.".config/starship.toml".source = starshipConfigs.user;
+    home.file.".config/fish/conf.d/50-git-gh-short.fish".text = gitGhFish;
     programs = {
       fish = {
         enable = true;
