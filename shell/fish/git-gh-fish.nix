@@ -5,11 +5,11 @@ let
 
   extraNames = [
     "lg"
-    "gsw"
-    "ghs"
+    "lgh"
+    "sw"
   ];
 
-  # switch: Fish reserved keyword → gsw
+  # switch: Fish reserved keyword → sw
   gitCommands = [
     "add"
     "am"
@@ -101,19 +101,19 @@ let
         git status --short $argv
     end'';
 
-  gswFn = ''
-    function gsw --wraps 'git switch' --description 'git switch'
+  swFn = ''
+    function sw --wraps 'git switch' --description 'git switch'
         git switch $argv
     end'';
 
-  ghsFn = ''
-    function ghs --wraps 'gh status' --description 'gh status'
+  lghFn = ''
+    function lgh --wraps 'gh status' --description 'gh status'
         gh status $argv
     end'';
 
   allShortFns =
     concatStringsSep "\n\n" (
-      [ lgFn gswFn ghsFn ]
+      [ lgFn swFn lghFn ]
       ++ map mkGitFn gitCommands
       ++ map mkGhFn ghCommands
     );
