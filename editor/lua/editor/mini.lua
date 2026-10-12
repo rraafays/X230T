@@ -11,8 +11,42 @@ require("mini.snippets").setup({
 	mappings = { expand = "", jump_next = "<C-l>", jump_prev = "<C-h>" },
 })
 vim.o.completeopt = "menuone,noselect,fuzzy"
+
+local nvim_open_win = vim.api.nvim_open_win
+local nvim_win_set_config = vim.api.nvim_win_set_config
+
+local function minicompletion_buf(buf)
+	return vim.api.nvim_buf_get_name(buf):match("^minicompletion://") ~= nil
+end
+
+local function without_float_title(cfg)
+	return vim.tbl_extend("force", {}, cfg, { title = "" })
+end
+
+vim.api.nvim_open_win = function(buf, enter, cfg)
+	if minicompletion_buf(buf) then
+		cfg = without_float_title(cfg)
+	end
+	return nvim_open_win(buf, enter, cfg)
+end
+
+vim.api.nvim_win_set_config = function(win, cfg)
+	if vim.api.nvim_win_is_valid(win) and minicompletion_buf(vim.api.nvim_win_get_buf(win)) then
+		cfg = without_float_title(cfg)
+	end
+	return nvim_win_set_config(win, cfg)
+end
+
 require("mini.completion").setup({
 	lsp_completion = {
+		process_items = function(items, base)
+			items = MiniCompletion.default_process_items(items, base)
+			local cap = vim.o.pumheight
+			if cap > 0 and #items > cap then
+				return vim.list_slice(items, 1, cap)
+			end
+			return items
+		end,
 		snippet_insert = function(snippet)
 			if _G.MiniSnippets then
 				MiniSnippets.default_insert({ body = snippet }, { empty_tabstop = "", empty_tabstop_final = "" })
@@ -169,8 +203,11 @@ vim.api.nvim_create_autocmd("User", {
 		end
 		vim.schedule(function()
 			local win = ev.data.win_id
+			if not vim.api.nvim_win_is_valid(win) then
+				return
+			end
 			local pum = vim.fn.pum_getpos()
-			if not vim.api.nvim_win_is_valid(win) or not pum.col or pum.col < 0 then
+			if not pum.col or pum.col < 0 then
 				return
 			end
 			local pum_border = vim.o.pumborder ~= "" and vim.o.pumborder or "none"
@@ -181,7 +218,7 @@ vim.api.nvim_create_autocmd("User", {
 				return
 			end
 			local cfg = vim.api.nvim_win_get_config(win)
-			vim.api.nvim_win_set_config(
+			nvim_win_set_config(
 				win,
 				vim.tbl_extend("force", cfg, {
 					relative = "editor",
