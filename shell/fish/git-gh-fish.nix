@@ -25,6 +25,7 @@ let
   gitSkip = [
     "status"
     "switch"
+    "rm"
     "help"
   ];
 
@@ -86,6 +87,7 @@ let
   extraNames = [
     "lg"
     "sw"
+    "rmv"
     "lgh"
   ];
 
@@ -113,6 +115,10 @@ let
         ''
           function sw --wraps 'git switch' --description 'git switch'
               git switch $argv
+          end''
+        ''
+          function rmv --wraps 'git rm' --description 'git rm'
+              git rm $argv
           end''
         ''
           function lgh --wraps 'gh status' --description 'gh status'
