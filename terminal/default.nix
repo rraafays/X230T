@@ -26,6 +26,7 @@ in
         extraConfig = ''
           unbind -a
           set -g mode-keys vi
+          set -g mode-style 'reverse'
           set -g prefix None
           set -s set-clipboard external
           set -g status off
@@ -49,7 +50,6 @@ in
           bind -T copy-mode-vi M-Up select-pane -U   
           bind -T copy-mode-vi M-Right select-pane -R
 
-          # Neovim sets @vim on the pane (editor/lua/editor/tmux.lua).
           bind-key -n 'M-Left' if-shell -F '#{@vim}' 'send-keys M-Left' 'select-pane -L'
           bind-key -n 'M-Down' if-shell -F '#{@vim}' 'send-keys M-Down' 'select-pane -D'
           bind-key -n 'M-Up' if-shell -F '#{@vim}' 'send-keys M-Up' 'select-pane -U'

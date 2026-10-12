@@ -25,7 +25,6 @@ in
         interactiveShellInit = ''
           fish_vi_key_bindings
           set fish_greeting
-          # Let tmux handle Alt+arrows for pane navigation (not fish dir/history).
           if set -q TMUX
             for mode in insert default
               bind --preset -M $mode -e alt-left

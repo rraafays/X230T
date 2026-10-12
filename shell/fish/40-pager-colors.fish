@@ -1,6 +1,3 @@
-# Tab-completion pager styling (fish draws "(" ")" around descriptions; cannot remove them).
-# Description text uses yellow; completion text stays normal.
-
 set -g fish_pager_color_prefix cyan --underline
 set -g fish_pager_color_completion normal
 set -g fish_pager_color_description yellow

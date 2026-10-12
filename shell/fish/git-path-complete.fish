@@ -1,6 +1,3 @@
-# Tab-complete paths from git status (cached once per prompt in a repo).
-# Completion descriptions use git status --short XY codes (e.g. " M", "??").
-
 set -g __git_path_complete_cmds \
     nvim vim vi \
     bat cat less more head tail \

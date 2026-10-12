@@ -5,7 +5,6 @@ let
 in
 {
   i18n = {
-    # Simplified Chinese locale archive entry (en_GB comes from i18n.defaultLocale).
     extraLocales = [ "zh_CN.UTF-8/UTF-8" ];
     inputMethod = {
       enable = true;

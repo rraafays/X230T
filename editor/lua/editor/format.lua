@@ -61,15 +61,17 @@ configs.stylua = vim.tbl_extend("force", configs.stylua or {}, {
 
 configs.prettier = vim.tbl_extend("force", configs.prettier or {}, {
     prepend_args = function(_, ctx)
-        if has_project_config(ctx.dirname, {
-            ".prettierrc",
-            ".prettierrc.json",
-            ".prettierrc.yaml",
-            ".prettierrc.yml",
-            "prettier.config.js",
-            "prettier.config.cjs",
-            "prettier.config.mjs",
-        }) then
+        if
+            has_project_config(ctx.dirname, {
+                ".prettierrc",
+                ".prettierrc.json",
+                ".prettierrc.yaml",
+                ".prettierrc.yml",
+                "prettier.config.js",
+                "prettier.config.cjs",
+                "prettier.config.mjs",
+            })
+        then
             return {}
         end
         return { "--tab-width", tostring(INDENT), "--use-tabs", "false" }

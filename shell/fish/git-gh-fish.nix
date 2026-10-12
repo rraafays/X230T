@@ -1,4 +1,3 @@
-# Build-time git/gh command lists → static Fish defs (sourced only inside a repo).
 { pkgs, lib }:
 let
   inherit (lib) concatStringsSep filter unique;
@@ -126,7 +125,6 @@ let
     + "\n";
 
   loader = ''
-    # Short git/gh commands — defs built at deploy time; loaded only inside a work tree.
     set -g __git_gh_short_names ${namesFishList}
     set -g __git_gh_short_defs $__fish_config_dir/git-gh-short-defs.inc
 

@@ -1,40 +1,20 @@
-local color_map = vim.api.nvim_get_color_map()
-
-local ansi = {}
-for index, hue in ipairs({ "Red", "Green", "Yellow", "Blue", "Magenta", "Cyan" }) do
-    ansi[color_map["NvimDark" .. hue]] = index
-    ansi[color_map["NvimLight" .. hue]] = index + 8
-end
-ansi[color_map.NvimDarkGrey4] = 8
-ansi[color_map.NvimLightGrey4] = 8
-
-local overrides = {
-    StatusLine = {},
-    StatusLineNC = { ctermfg = 8 },
-    MiniStatuslineModeNormal = { cterm = { bold = true } },
-    MiniStatuslineModeInsert = { cterm = { bold = true } },
-    MiniStatuslineModeVisual = { cterm = { bold = true } },
-    MiniStatuslineModeReplace = { cterm = { bold = true } },
-    MiniStatuslineModeCommand = { cterm = { bold = true } },
-    MiniStatuslineModeOther = { cterm = { bold = true } },
-    MiniStatuslineDevinfo = { ctermfg = 8 },
-    MiniStatuslineFilename = {},
-    MiniStatuslineFileinfo = { ctermfg = 8 },
-    MiniStatuslineInactive = { ctermfg = 8 },
-
-    NormalFloat = {},
-    FloatBorder = { ctermfg = 8 },
-    Pmenu = {},
-    PmenuSel = { cterm = { reverse = true } },
-    PmenuKind = {},
-    PmenuExtra = { ctermfg = 8 },
-    PmenuSbar = {},
-    PmenuThumb = { ctermbg = 8 },
-    PmenuBorder = { ctermfg = 8 },
-
-    MiniFilesCursorLine = { cterm = { reverse = true } },
-    MiniPickMatchCurrent = { cterm = { reverse = true } },
-    MiniPickPreviewLine = { cterm = { reverse = true } },
+local terminal_bg = {
+    Normal = true,
+    NormalNC = true,
+    NormalFloat = true,
+    EndOfBuffer = true,
+    MsgArea = true,
+    SignColumn = true,
+    FoldColumn = true,
+    StatusLine = true,
+    StatusLineNC = true,
+    TabLine = true,
+    TabLineFill = true,
+    TabLineSel = true,
+    WinBar = true,
+    WinBarNC = true,
+    FloatTitle = true,
+    FloatFooter = true,
 }
 
 local function apply()
@@ -42,24 +22,43 @@ local function apply()
         return
     end
 
-    for name, def in pairs(vim.api.nvim_get_hl(0, {})) do
-        if not def.link then
-            local update = {}
-            if def.fg and not def.ctermfg then
-                update.ctermfg = ansi[def.fg]
-            end
-            if def.bg and not def.ctermbg then
-                update.ctermbg = ansi[def.bg]
-            end
-            if next(update) then
-                vim.api.nvim_set_hl(0, name, vim.tbl_extend("force", def, update))
-            end
+    for name, hl in pairs(vim.api.nvim_get_hl(0, {})) do
+        if terminal_bg[name] and not hl.link and (hl.bg ~= nil or hl.ctermbg ~= nil) then
+            vim.api.nvim_set_hl(0, name, { bg = "NONE", ctermbg = "NONE" })
         end
     end
 
-    for name, def in pairs(overrides) do
-        vim.api.nvim_set_hl(0, name, def)
-    end
+    vim.api.nvim_set_hl(0, "Visual", {
+        fg = "NONE",
+        bg = "NONE",
+        ctermfg = "NONE",
+        ctermbg = "NONE",
+        cterm = { reverse = true },
+        reverse = vim.o.termguicolors,
+    })
+    vim.api.nvim_set_hl(0, "VisualNOS", { link = "Visual" })
+    vim.api.nvim_set_hl(0, "CurSearch", { cterm = { reverse = true, bold = true }, reverse = vim.o.termguicolors })
+    vim.api.nvim_set_hl(0, "IncSearch", { link = "CurSearch" })
+    vim.api.nvim_set_hl(0, "Search", { cterm = { underline = true, bold = true } })
+    vim.api.nvim_set_hl(0, "MatchParen", { cterm = { bold = true, underline = true } })
+    vim.api.nvim_set_hl(0, "CursorLine", { cterm = { bold = true } })
+    vim.api.nvim_set_hl(0, "MiniPickMatchCurrent", { cterm = { reverse = true }, reverse = vim.o.termguicolors })
+    vim.api.nvim_set_hl(0, "MiniPickPreviewLine", { cterm = { reverse = true }, reverse = vim.o.termguicolors })
+    vim.api.nvim_set_hl(0, "MiniFilesCursorLine", { cterm = { reverse = true }, reverse = vim.o.termguicolors })
+
+    vim.api.nvim_set_hl(0, "Pmenu", { reverse = false })
+    vim.api.nvim_set_hl(0, "PmenuKind", { reverse = false })
+    vim.api.nvim_set_hl(0, "PmenuExtra", { reverse = false })
+    vim.api.nvim_set_hl(0, "PmenuSbar", { reverse = false })
+    vim.api.nvim_set_hl(0, "PmenuThumb", { reverse = false })
+    vim.api.nvim_set_hl(0, "PmenuSel", {
+        fg = "NONE",
+        bg = "NONE",
+        ctermfg = "NONE",
+        ctermbg = "NONE",
+        cterm = { reverse = true },
+        reverse = vim.o.termguicolors,
+    })
 end
 
 apply()
