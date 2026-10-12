@@ -1,90 +1,95 @@
-# Generates ~/.config/fish/conf.d/50-git-gh-short.fish
-{ lib }:
+# Build-time git/gh command lists → static Fish defs (sourced only inside a repo).
+{ pkgs, lib }:
 let
-  inherit (lib) concatStringsSep;
+  inherit (lib) concatStringsSep filter unique;
+
+  fishReserved = [
+    "and"
+    "begin"
+    "break"
+    "case"
+    "continue"
+    "else"
+    "end"
+    "for"
+    "function"
+    "if"
+    "in"
+    "not"
+    "or"
+    "return"
+    "status"
+    "switch"
+    "while"
+  ];
+
+  gitSkip = [
+    "status"
+    "switch"
+    "help"
+  ];
+
+  ghSkip = [
+    "config"
+    "status"
+    "alias"
+    "help"
+  ];
+
+  gitCmdsFile = pkgs.runCommand "git-short-cmd-list" {
+    nativeBuildInputs = [ pkgs.git ];
+  } ''
+    git --list-cmds=main,others,alias 2>/dev/null | sort -u > $out
+  '';
+
+  ghCmdsFile = pkgs.runCommand "gh-short-cmd-list" {
+    nativeBuildInputs = [
+      pkgs.gh
+      pkgs.python3
+    ];
+  } ''
+    python3 <<'PY' > $out
+import re, subprocess
+out = []
+insec = False
+for line in subprocess.run(["gh", "--help"], capture_output=True, text=True).stdout.splitlines():
+    if line.endswith(" COMMANDS"):
+        insec = True
+        continue
+    if line == "HELP TOPICS":
+        break
+    if insec:
+        m = re.match(r"^\s+(\S+):", line)
+        if m:
+            out.append(m.group(1))
+print("\n".join(sorted(set(out))))
+PY
+  '';
+
+  readLines = path: filter (l: l != "") (lib.splitString "\n" (lib.fileContents path));
+
+  isSkipped = skip: cmd: lib.elem cmd fishReserved || lib.elem cmd skip;
+
+  gitNames =
+    unique (filter (cmd: !(isSkipped gitSkip cmd)) (readLines gitCmdsFile));
+
+  ghNames =
+    let
+      taken = gitNames;
+    in
+    unique (
+      filter (cmd: !(isSkipped ghSkip cmd) && !(lib.elem cmd taken)) (readLines ghCmdsFile)
+    );
 
   extraNames = [
     "lg"
-    "lgh"
     "sw"
+    "lgh"
   ];
 
-  # switch: Fish reserved keyword → sw
-  gitCommands = [
-    "add"
-    "am"
-    "archive"
-    "bisect"
-    "blame"
-    "branch"
-    "bundle"
-    "checkout"
-    "cherry-pick"
-    "clean"
-    "clone"
-    "commit"
-    "config"
-    "describe"
-    "diff"
-    "fetch"
-    "format-patch"
-    "fsck"
-    "gc"
-    "grep"
-    "init"
-    "log"
-    "merge"
-    "mv"
-    "pull"
-    "push"
-    "rebase"
-    "reflog"
-    "remote"
-    "reset"
-    "restore"
-    "revert"
-    "rm"
-    "show"
-    "sparse-checkout"
-    "stage"
-    "stash"
-    "submodule"
-    "tag"
-    "worktree"
-  ];
+  shortNames = extraNames ++ gitNames ++ ghNames;
 
-  ghCommands = [
-    "api"
-    "auth"
-    "browse"
-    "cache"
-    "co"
-    "codespace"
-    "completion"
-    "extension"
-    "gist"
-    "gpg-key"
-    "issue"
-    "label"
-    "org"
-    "pr"
-    "preview"
-    "project"
-    "release"
-    "repo"
-    "ruleset"
-    "run"
-    "search"
-    "secret"
-    "ssh-key"
-    "variable"
-    "workflow"
-  ];
-
-  shortNames = gitCommands ++ ghCommands ++ extraNames;
-
-  namesFishList =
-    concatStringsSep " " (map (n: "'${n}'") shortNames);
+  namesFishList = concatStringsSep " " (map (n: "'${n}'") shortNames);
 
   mkGitFn = cmd: ''
     function '${cmd}' --wraps 'git ${cmd}' --description 'git ${cmd}'
@@ -96,77 +101,75 @@ let
         gh ${cmd} $argv
     end'';
 
-  lgFn = ''
-    function lg --wraps 'git status' --description 'git status --short'
-        git status --short $argv
-    end'';
-
-  swFn = ''
-    function sw --wraps 'git switch' --description 'git switch'
-        git switch $argv
-    end'';
-
-  lghFn = ''
-    function lgh --wraps 'gh status' --description 'gh status'
-        gh status $argv
-    end'';
-
-  allShortFns =
+  defs =
     concatStringsSep "\n\n" (
-      [ lgFn swFn lghFn ]
-      ++ map mkGitFn gitCommands
-      ++ map mkGhFn ghCommands
-    );
+      [
+        ''
+          function lg --wraps 'git status' --description 'git status --short'
+              git status --short $argv
+          end''
+        ''
+          function sw --wraps 'git switch' --description 'git switch'
+              git switch $argv
+          end''
+        ''
+          function lgh --wraps 'gh status' --description 'gh status'
+              gh status $argv
+          end''
+      ]
+      ++ map mkGitFn gitNames
+      ++ map mkGhFn ghNames
+    )
+    + "\n";
 
-  indentFour =
-    s:
-    concatStringsSep "\n" (map (line: "    " + line) (lib.strings.splitString "\n" s));
+  loader = ''
+    # Short git/gh commands — defs built at deploy time; loaded only inside a work tree.
+    set -g __git_gh_short_names ${namesFishList}
+    set -g __git_gh_short_defs $__fish_config_dir/git-gh-short-defs.inc
+
+    function __git_gh_in_repo
+        git rev-parse --is-inside-work-tree >/dev/null 2>&1
+    end
+
+    function __git_gh_disable
+        for fn in $__git_gh_short_names
+            functions -e $fn 2>/dev/null
+        end
+        set -e __git_gh_short_active
+    end
+
+    function __git_gh_enable
+        source $__git_gh_short_defs
+        set -g __git_gh_short_active 1
+    end
+
+    function __git_gh_sync
+        if __git_gh_in_repo
+            if not set -q __git_gh_short_active
+                __git_gh_enable
+            end
+        else if set -q __git_gh_short_active
+            __git_gh_disable
+        end
+    end
+
+    function __git_gh_on_pwd --on-variable PWD
+        __git_gh_sync
+    end
+
+    function __git_gh_on_prompt --on-event fish_prompt
+        if not set -q __git_gh_short_active
+            return
+        end
+        if not __git_gh_in_repo
+            __git_gh_disable
+        end
+    end
+
+    __git_gh_sync
+  '';
 
 in
-''
-  # Short git/gh commands — defined only inside a work tree (PWD / fish_prompt hooks).
-  set -g __git_gh_short_names ${namesFishList}
-
-  function __git_gh_in_repo
-      git rev-parse --is-inside-work-tree >/dev/null 2>&1
-  end
-
-  function __git_gh_disable
-      for fn in $__git_gh_short_names
-          functions -e $fn 2>/dev/null
-      end
-  end
-
-  function __git_gh_enable
-${indentFour allShortFns}
-  end
-
-  function __git_gh_sync
-      if __git_gh_in_repo
-          if not set -q __git_gh_short_active
-              __git_gh_enable
-              set -g __git_gh_short_active 1
-          end
-      else if set -q __git_gh_short_active
-          __git_gh_disable
-          set -e __git_gh_short_active
-      end
-  end
-
-  function __git_gh_on_pwd --on-variable PWD
-      __git_gh_sync
-  end
-
-  # .git removed without cd (rare): drop shortcuts on next prompt only when active.
-  function __git_gh_on_prompt --on-event fish_prompt
-      if not set -q __git_gh_short_active
-          return
-      end
-      if not __git_gh_in_repo
-          __git_gh_disable
-          set -e __git_gh_short_active
-      end
-  end
-
-  __git_gh_sync
-''
+{
+  inherit loader defs;
+}
