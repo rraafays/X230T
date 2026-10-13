@@ -18,6 +18,9 @@ in
           font-family = "Iosevka";
           theme = "light:Adwaita,dark:Adwaita Dark";
           command = "${pkgs.tmux}/bin/tmux new-session -A -D -s ghostty";
+          window-padding-x = 10;
+          window-padding-y = 10;
+          window-padding-balance = true;
         };
       };
       tmux = {
