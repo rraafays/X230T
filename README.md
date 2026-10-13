@@ -6,6 +6,8 @@ NixOS config for the current laptop (ThinkPad X230T). Channel-based upgrades; mo
 
 | Path                         | Role                                                          |
 | ---------------------------- | ------------------------------------------------------------- |
+| `docs/decisions/`            | MADR architecture decision records                            |
+| `docs/rules/`                | Human-readable project rules and philosophy                   |
 | `configuration.nix`          | Channel, Home Manager tarball, imports, hostname, boot        |
 | `hardware-configuration.nix` | Disk, firmware, platform                                      |
 | `shared/`                    | `shared.username`, `shared.home.stateVersion`, `shared.email` |
