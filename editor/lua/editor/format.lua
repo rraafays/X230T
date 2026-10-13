@@ -146,3 +146,34 @@ vim.api.nvim_create_autocmd("FileType", {
         end
     end,
 })
+
+local function format_file_list(paths)
+    local root = vim.fn.getcwd()
+    for _, rel in ipairs(paths) do
+        rel = vim.trim(rel)
+        if rel ~= "" then
+            local path = rel
+            if path:sub(1, 1) ~= "/" then
+                path = root .. "/" .. rel
+            end
+            if vim.fn.filereadable(path) == 1 then
+                local buf = vim.fn.bufadd(path)
+                vim.fn.bufload(buf)
+                vim.api.nvim_set_current_buf(buf)
+                for _, name in ipairs(conform.list_formatters_for_buffer(buf)) do
+                    local info = conform.get_formatter_info(name, buf)
+                    if not info.available and vim.fn.executable(info.command) == 0 then
+                        nix.ensure(info.command, function() end)
+                    end
+                end
+                conform.format({ async = false, lsp_fallback = false, timeout_ms = 120000 })
+                if vim.api.nvim_buf_get_option(buf, "modified") then
+                    vim.cmd.write({ bang = true })
+                end
+                vim.api.nvim_buf_delete(buf, { force = true })
+            end
+        end
+    end
+end
+
+vim.g.editor_format_file_list = format_file_list

@@ -1,7 +1,12 @@
-{ pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 let
-  USER = "raf";
+  user = config.shared.username;
   starshipConfigs = import ./starship { inherit pkgs lib; };
   gitGhShort = import ./fish/git-gh-fish.nix { inherit lib pkgs; };
 in
@@ -10,7 +15,7 @@ in
 
   users.users.root.shell = pkgs.fish;
 
-  home-manager.users.${USER} = {
+  home-manager.users.${user} = {
     home.packages = with pkgs; [
       lsd
       nerd-fonts.symbols-only
@@ -79,7 +84,7 @@ in
   };
 
   home-manager.users.root = {
-    home.stateVersion = "26.05";
+    home.stateVersion = config.shared.home.stateVersion;
     home.file.".config/starship.toml".source = starshipConfigs.root;
     programs = {
       fish = {

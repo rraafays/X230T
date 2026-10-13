@@ -1,17 +1,17 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 
 let
-  USER = "raf";
+  user = config.shared.username;
 in
 {
   users.groups = {
     "input" = {
       name = "input";
-      members = [ USER ];
+      members = [ user ];
     };
     "uinput" = {
       name = "uinput";
-      members = [ USER ];
+      members = [ user ];
     };
   };
   services.kanata = {

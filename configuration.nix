@@ -7,6 +7,7 @@ in
 {
   imports = [
     "${home-manager}/nixos"
+    ./shared
     ./hardware-configuration.nix
     ./desktop
     ./editor

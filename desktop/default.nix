@@ -1,7 +1,7 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 
 let
-  USER = "raf";
+  user = config.shared.username;
 in
 {
   i18n = {
@@ -34,7 +34,7 @@ in
     gnome-console
   ];
 
-  home-manager.users.${USER} = {
+  home-manager.users.${user} = {
     home.packages = with pkgs; [
       gnome-themes-extra
       adwaita-qt

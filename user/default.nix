@@ -1,18 +1,39 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 
 let
-  USER = "raf";
+  user = config.shared.username;
 in
 {
   home-manager = {
     backupFileExtension = "old";
-    users.${USER} = import ./home-manager.nix;
+    users.${user} =
+      let
+        homeStateVersion = config.shared.home.stateVersion;
+        gitName = config.shared.username;
+        gitEmail = config.shared.email;
+      in
+      {
+        pkgs,
+        lib,
+        ...
+      }:
+      {
+        imports = [ ./home-manager.nix ];
+        home.stateVersion = homeStateVersion;
+        programs.git = {
+          enable = true;
+          settings.user = {
+            name = gitName;
+            email = gitEmail;
+          };
+        };
+      };
   };
 
-  users.users.${USER} = {
+  users.users.${user} = {
     shell = pkgs.fish;
     isNormalUser = true;
-    description = "${USER}";
+    description = user;
     extraGroups = [
       "networkmanager"
       "wheel"
