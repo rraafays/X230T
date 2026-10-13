@@ -1,0 +1,11 @@
+user: 7
+group: 7
+size:
+    none: 7
+    small: 7
+    medium: 7
+    large: 7
+date:
+    hour-old: 15
+    day-old: 15
+    older: 7

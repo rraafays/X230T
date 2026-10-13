@@ -12,8 +12,11 @@ in
 
   home-manager.users.${USER} = {
     home.packages = with pkgs; [
+      lsd
       nerd-fonts.symbols-only
     ];
+    home.file.".config/lsd/config.yaml".source = ./lsd/config.yaml;
+    home.file.".config/lsd/colors.yaml".source = ./lsd/colors.yaml;
     home.file.".config/starship.toml".source = starshipConfigs.user;
     home.file.".config/fish/conf.d/40-pager-colors.fish".source = ./fish/40-pager-colors.fish;
     home.file.".config/fish/conf.d/45-git-path-complete.fish".source = ./fish/git-path-complete.fish;
@@ -22,6 +25,19 @@ in
     programs = {
       fish = {
         enable = true;
+        shellAliases = {
+          ls = "lsd";
+          l = "lsd";
+          la = "lsd -a";
+          ll = "lsd -l";
+          lla = "lsd -la";
+          dir = "lsd";
+          vdir = "lsd -l";
+        };
+        functions.lt = {
+          description = "Directory tree (lsd)";
+          body = "command lsd --tree $argv";
+        };
         interactiveShellInit = ''
           fish_vi_key_bindings
           set fish_greeting
