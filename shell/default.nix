@@ -14,6 +14,7 @@ in
   programs.fish.enable = true;
 
   users.users.root.shell = pkgs.fish;
+  users.users.${user}.shell = pkgs.fish;
 
   home-manager.users.${user} = {
     home.packages = with pkgs; [

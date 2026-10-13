@@ -26,7 +26,6 @@ in
       };
 
   users.users.${user} = {
-    shell = pkgs.fish;
     isNormalUser = true;
     description = user;
     extraGroups = [
