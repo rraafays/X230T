@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 let
-  user = config.shared.username;
+  user = config.common.username;
 in
 {
   users.groups = {

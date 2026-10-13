@@ -15,8 +15,8 @@ When policy changes, update **both** so humans and Cursor stay aligned. See [mai
 
 | Document | Covers |
 | -------- | ------ |
-| [philosophy.md](philosophy.md) | Goals: one laptop, importable modules, channels, shared options |
-| [nix-modules.md](nix-modules.md) | Host vs module split, Home Manager, `shared.*` |
+| [philosophy.md](philosophy.md) | Goals: one laptop, importable modules, channels, common options |
+| [nix-modules.md](nix-modules.md) | Host vs module split, Home Manager via `common/` |
 | [documentation.md](documentation.md) | READMEs, tone, module docs |
 | [decisions.md](decisions.md) | MADR ADRs, commit granularity, AskQuestion |
 | [formatting-and-code.md](formatting-and-code.md) | Neovim/conform format pass, comments policy |

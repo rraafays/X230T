@@ -15,7 +15,7 @@ Anyone changing project conventions (humans or agents) keeps **`docs/rules/`** a
 
 | `docs/rules/` | `.cursor/rules/` |
 | ------------- | ---------------- |
-| `philosophy.md`, `nix-modules.md` | `nix-modules-portable.mdc`, `nix-host-vs-shared.mdc` |
+| `philosophy.md`, `nix-modules.md` | `nix-modules-portable.mdc`, `nix-system-vs-common.mdc` |
 | `documentation.md` | `readme-style.mdc`, `module-readmes.mdc` |
 | `decisions.md` | `madr-adrs.mdc` |
 | `formatting-and-code.md` | `format-after-edit.mdc`, `no-comments-unless-asked.mdc` |

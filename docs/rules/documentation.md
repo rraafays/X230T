@@ -2,13 +2,13 @@
 
 ## Module READMEs
 
-Each top-level module directory (`shared/`, `user/`, `shell/`, `terminal/`, `desktop/`, `editor/`, `keyboard/`) has a **`README.md`**.
+Each top-level module directory (`common/`, `system/`, `user/`, `shell/`, `terminal/`, `desktop/`, `editor/`, `keyboard/`) has a **`README.md`**.
 
 Each README should state:
 
 - What the module configures
 - NixOS vs Home Manager responsibilities
-- Required imports (`./shared`, Home Manager tarball, etc.)
+- Required imports (`./common`, other modules, etc.)
 
 Update the module README when behaviour changes in a meaningful way.
 

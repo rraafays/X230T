@@ -3,19 +3,18 @@
 ## What this repo is
 
 - NixOS configuration for **one active laptop** at a time (currently ThinkPad X230T).
-- **Channel-based** upgrades (`nixos-26.05` style), not flakes, unless explicitly requested later.
-- **Importable modules** (`shell/`, `terminal/`, `desktop/`, `editor/`, `keyboard/`, `user/`, `shared/`) so another NixOS host (e.g. a server) can `imports = [ ./shared ./shell ]` without copying ad hoc snippets.
+- **Channel-based** upgrades, not flakes, unless explicitly requested later.
+- **`configuration.nix`** lists module imports; machine-specific settings live in **`configuration.nix`** (boot, network, GPU vars) and **`system/`** / **`hardware-configuration.nix`**.
+- **Importable modules** (`common/`, `shell/`, `terminal/`, …) for reuse on other NixOS hosts.
 
 ## Design goals
 
-- **Portable modules** — behaviour and dotfiles in modules; disk, hostname, and heavy package lists on the host.
-- **Single identity contract** — `shared.username`, `shared.email`, `shared.home.stateVersion` on the NixOS side; modules read `config.shared.*`, not a hardcoded login that can drift.
-- **Explicit Home Manager** — modules declare `home-manager.users.<username>` but do not install HM; the host wires the tarball and `users.users`.
-- **Lean docs** — READMEs and rules describe **current** behaviour only; decisions worth remembering go in **MADR** under `docs/decisions/`.
-- **No surprise tooling** — no capture/export scripts, flakes, or submodules unless asked.
+- **`common/`** — Home Manager bootstrap, `common.username`, `common.email`, `common.home.stateVersion`.
+- **Portable modules** — behaviour in feature dirs; disk, hostname, and heavy package lists on the host.
+- **Explicit HM wiring** — only `common/` imports `"${home-manager}/nixos"`; feature modules attach to `home-manager.users.<username>`.
+- **Lean docs** — READMEs describe current behaviour; commit-worthy decisions in **MADR** under `docs/decisions/`.
 
 ## Out of scope by default
 
-- Multi-machine monorepo or submodule layout (may come later).
-- Documenting every package install as architecture.
-- Comments in code/config unless requested—prefer naming and structure.
+- Multi-machine monorepo or submodules unless asked.
+- Capture/export scripts, flakes, or comments in code unless requested.

@@ -1,16 +1,13 @@
 { config, pkgs, ... }:
 
 let
-  user = config.shared.username;
+  user = config.common.username;
 in
 {
-  home-manager = {
-    backupFileExtension = "old";
-    users.${user} =
+  home-manager.users.${user} =
       let
-        homeStateVersion = config.shared.home.stateVersion;
-        gitName = config.shared.username;
-        gitEmail = config.shared.email;
+        gitName = config.common.username;
+        gitEmail = config.common.email;
       in
       {
         pkgs,
@@ -19,7 +16,6 @@ in
       }:
       {
         imports = [ ./home-manager.nix ];
-        home.stateVersion = homeStateVersion;
         programs.git = {
           enable = true;
           settings.user = {
@@ -28,7 +24,6 @@ in
           };
         };
       };
-  };
 
   users.users.${user} = {
     shell = pkgs.fish;

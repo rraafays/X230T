@@ -6,7 +6,7 @@
 }:
 
 let
-  user = config.shared.username;
+  user = config.common.username;
   starshipConfigs = import ./starship { inherit pkgs lib; };
   gitGhShort = import ./fish/git-gh-fish.nix { inherit lib pkgs; };
 in
@@ -84,7 +84,7 @@ in
   };
 
   home-manager.users.root = {
-    home.stateVersion = config.shared.home.stateVersion;
+    home.stateVersion = config.common.home.stateVersion;
     home.file.".config/starship.toml".source = starshipConfigs.root;
     programs = {
       fish = {

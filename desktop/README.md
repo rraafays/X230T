@@ -1,8 +1,5 @@
 # desktop
 
-GNOME session pieces and GTK/Qt theming for `config.shared.username`.
+GNOME session pieces and GTK/Qt theming for `config.common.username`.
 
-- NixOS: GDM, GNOME, ibus libpinyin, trimmed default GNOME apps
-- Home Manager: Adwaita-dark GTK, adwaita-qt
-
-Requires `./shared` and `"${home-manager}/nixos"`. Skip on headless hosts.
+Requires `./common`. Skip on headless hosts.

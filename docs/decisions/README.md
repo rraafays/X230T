@@ -23,3 +23,4 @@ Architecture and design decisions for this repo, recorded as [MADR](https://adr.
 | 0013 | [Neovim built-in LSP completion](0013-neovim-built-in-lsp-completion.md) |
 | 0014 | [README per module directory](0014-readme-per-module-directory.md) |
 | 0015 | [Human-readable rules in docs/rules](0015-human-readable-rules-in-docs-rules.md) |
+| 0016 | [common module and skeleton configuration](0016-common-module-and-skeleton-configuration.md) |

@@ -1,77 +1,54 @@
 # X230T
 
-NixOS config for the current laptop (ThinkPad X230T). Channel-based upgrades; modules under `shell/`, `terminal/`, etc. can be imported on other NixOS hosts.
+NixOS config for the ThinkPad X230T. `configuration.nix` lists module imports and machine-only settings; reusable fragments live under `common/`, `system/`, and feature modules.
 
 ## Layout
 
-| Path                         | Role                                                          |
-| ---------------------------- | ------------------------------------------------------------- |
-| `docs/decisions/`            | MADR architecture decision records                            |
-| `docs/rules/`                | Human-readable project rules and philosophy                   |
-| `configuration.nix`          | Channel, Home Manager tarball, imports, hostname, boot        |
-| `hardware-configuration.nix` | Disk, firmware, platform                                      |
-| `shared/`                    | `shared.username`, `shared.home.stateVersion`, `shared.email` |
-| `user/`                      | User account, packages, git/gh, dconf activation              |
-| `shell/`                     | Fish, starship, lsd, git shortcuts                            |
-| `terminal/`                  | Ghostty, tmux                                                 |
-| `desktop/`                   | GNOME, GTK/Qt, ibus                                           |
-| `editor/`                    | System Neovim (`programs.neovim`)                             |
-| `keyboard/`                  | Kanata                                                        |
+| Path | Role |
+| ---- | ---- |
+| `configuration.nix` | Imports, boot, hostname, wireless, iGPU session vars |
+| `hardware-configuration.nix` | Disk, firmware, platform |
+| `common/` | Home Manager bootstrap, `common.*` options |
+| `system/` | Purpose-split NixOS fragments (autoupgrade, services, …) |
+| `user/` | User account, packages, git/gh, dconf |
+| `shell/` | Fish, starship, lsd |
+| `terminal/` | Ghostty, tmux |
+| `desktop/` | GNOME, GTK/Qt, ibus |
+| `editor/` | System Neovim |
+| `keyboard/` | Kanata |
+| `docs/decisions/` | MADR records |
+| `docs/rules/` | Project rules |
 
-## Shared options
+## configuration.nix
 
-Import `./shared` before user-facing modules:
+Module imports plus settings that must not be imported on other machines (boot device, hostname, wireless, this laptop’s iGPU `MESA_*` overrides). See [ADR 0016](docs/decisions/0016-common-module-and-skeleton-configuration.md).
+
+## Common options
 
 ```nix
-imports = [ ./shared ./shell ];
+common.username = "raf";
+common.email = "you@example.com";
+common.home.stateVersion = "26.05";
 ```
 
-Host overrides (defaults are set in `shared/default.nix`):
+See [common/README.md](common/README.md).
+
+## Import elsewhere
 
 ```nix
-shared.username = "raf";
-shared.email = "you@example.com";
-shared.home.stateVersion = "26.05";
-```
-
-Git `user.name` is `shared.username`. Git `user.email` is `shared.email`.
-
-## Home Manager
-
-`shell/`, `terminal/`, and `desktop/` set `home-manager.users.<shared.username>`. The host must import Home Manager and define the user account.
-
-```nix
-let
-  home-manager = fetchTarball "https://github.com/nix-community/home-manager/archive/release-26.05.tar.gz";
-in
 {
   imports = [
-    "${home-manager}/nixos"
-    ./shared
+    ./hardware-configuration.nix
+    ./common
+    ./system
     ./shell
   ];
+
+  boot.loader.grub.device = "/dev/nvme0n1";
+  networking.hostName = "my-server";
+
+  users.users.raf = { isNormalUser = true; shell = pkgs.fish; };
 }
 ```
 
-Use a Home Manager release that matches the NixOS channel. Define `users.users.<shared.username>` before Home Manager runs (see `user/`).
-
-## Import example
-
-Shell only on another host:
-
-```nix
-imports = [
-  "${home-manager}/nixos"
-  ./shared
-  ./shell
-];
-
-shared.username = "raf";
-
-users.users.raf = {
-  isNormalUser = true;
-  shell = pkgs.fish;
-};
-```
-
-Import `./user` for account, git, and dconf. Skip `keyboard/` without a desktop. `editor/` is NixOS-only (no Home Manager).
+Omit `./system` or replace fragments; do not copy another machine’s `boot` or `MESA_*` block.
