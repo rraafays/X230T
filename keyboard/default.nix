@@ -1,19 +1,26 @@
-{ config, pkgs, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 let
   user = config.common.username;
 in
 {
   users.groups = {
-    "input" = {
-      name = "input";
-      members = [ user ];
-    };
+    "input".members = lib.mkAfter [ user ];
     "uinput" = {
       name = "uinput";
       members = [ user ];
     };
   };
+
+  users.users.${user}.extraGroups = lib.mkAfter [
+    "input"
+    "uinput"
+  ];
   services.kanata = {
     enable = true;
     keyboards."default".config = ''

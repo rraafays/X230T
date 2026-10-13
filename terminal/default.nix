@@ -5,6 +5,7 @@ let
 in
 {
   home-manager.users.${user} = {
+    home.file.".config/fish/conf.d/55-tmux-alt-keys.fish".source = ./fish/55-tmux-alt-keys.fish;
     home.packages = with pkgs; [
       iosevka
       sarasa-gothic

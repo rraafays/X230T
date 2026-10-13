@@ -35,6 +35,7 @@ in
   ];
 
   home-manager.users.${user} = {
+    imports = [ ./home-manager.nix ];
     home.packages = with pkgs; [
       gnome-themes-extra
       adwaita-qt

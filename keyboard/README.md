@@ -1,5 +1,5 @@
 # keyboard
 
-Kanata system keyboard for `config.common.username` (input / uinput groups).
+Kanata layout, uinput group, and `input` / `uinput` membership for `config.common.username`.
 
-NixOS services only. No Home Manager.
+NixOS only. Requires `./common`. Adds `users.users.<name>.extraGroups` and group members; importer must define that user (e.g. `./user`).

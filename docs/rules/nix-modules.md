@@ -27,6 +27,15 @@ Import **`./common`** before `shell/`, `terminal/`, `user/`, and other HM featur
 - Use `config.common.username`; no hardcoded login names
 - Do not import Home Manager themselves
 
+## Out of the box (module completeness)
+
+Once a module is listed in `configuration.nix` (with `./common` and any imports its README names), it should **deliver what it claims** without the importer wiring extra NixOS or HM attrs for that concern.
+
+- **Own the stack** — e.g. `shell/` sets fish, login shell, and HM shell config; do not rely on `user/` to set the same shell.
+- **Duplication is acceptable** — repeated `users.users.<name>` fragments, split HM blocks, or overlapping attrs across modules are fine when each module stays self-contained and Nix merges cleanly.
+- **Still centralise identity** — `common.username`, `common.email`, and `common.home.stateVersion` stay in `common/`; do not copy those defaults into feature modules.
+- **Build is the gate** — if the full system evaluates and builds, prefer clarity and module boundaries over deduplicating every line.
+
 ## Home Manager split
 
 - Git identity on HM: wrapper in `user/default.nix` (`common.email`, name from `common.username`)

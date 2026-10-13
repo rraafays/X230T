@@ -12,7 +12,7 @@ sudo nixos-rebuild switch
 
 ```bash
 dconf dump / > /tmp/dconf-current.ini
-diff -u user/dconf/settings.ini /tmp/dconf-current.ini
+diff -u desktop/dconf/settings.ini /tmp/dconf-current.ini
 ```
 
 Merge wanted sections or keys into `settings.ini`, then rebuild.
@@ -20,11 +20,11 @@ Merge wanted sections or keys into `settings.ini`, then rebuild.
 Section-only diff:
 
 ```bash
-diff -u <(grep '^\[' user/dconf/settings.ini | sort) \
+diff -u <(grep '^\[' desktop/dconf/settings.ini | sort) \
         <(grep '^\[' /tmp/dconf-current.ini | sort)
 ```
 
-`meld user/dconf/settings.ini /tmp/dconf-current.ini` works for side-by-side edits.
+`meld desktop/dconf/settings.ini /tmp/dconf-current.ini` works for side-by-side edits.
 
 Check activation:
 
@@ -36,4 +36,4 @@ Empty arrays need a type, e.g. `disabled-extensions=@as []`.
 
 ## Scope
 
-Track keys for apps in `user/default.nix` and GNOME settings you want declarative. Omit one-off paths, removed apps, and hardware-specific extension state unless you intend to pin it on this machine.
+Track keys for apps in `user/default.nix` (packages) and GNOME settings you want declarative. Omit one-off paths, removed apps, and hardware-specific extension state unless you intend to pin it on this machine.

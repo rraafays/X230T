@@ -6,9 +6,9 @@ Each top-level module directory (`common/`, `system/`, `user/`, `shell/`, `termi
 
 Each README should state:
 
-- What the module configures
+- What the module configures **out of the box** after import
 - NixOS vs Home Manager responsibilities
-- Required imports (`./common`, other modules, etc.)
+- Required imports (`./common`, other modules, etc.) and anything the importer must still define (e.g. user account attrs without duplicating what this module sets)
 
 Update the module README when behaviour changes in a meaningful way.
 

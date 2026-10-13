@@ -18,6 +18,8 @@ in
 
   home-manager.users.${user} = {
     home.packages = with pkgs; [
+      git
+      gh
       lsd
       nerd-fonts.symbols-only
     ];
@@ -47,18 +49,6 @@ in
         interactiveShellInit = ''
           fish_vi_key_bindings
           set fish_greeting
-          if set -q TMUX
-            for mode in insert default
-              bind --preset -M $mode -e alt-left
-              bind --preset -M $mode -e alt-right
-              bind --preset -M $mode -e alt-up
-              bind --preset -M $mode -e alt-down
-              bind --preset -M $mode -e \e\[1\;9C
-              bind --preset -M $mode -e \e\[1\;9D
-              bind --preset -M $mode -e \e\[1\;9A
-              bind --preset -M $mode -e \e\[1\;9B
-            end
-          end
         '';
       };
       starship = {

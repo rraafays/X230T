@@ -10,7 +10,7 @@
 ## Design goals
 
 - **`common/`** — Home Manager bootstrap, `common.username`, `common.email`, `common.home.stateVersion`.
-- **Portable modules** — behaviour in feature dirs; disk, hostname, and heavy package lists on the host.
+- **Portable modules** — feature dirs own their behaviour end-to-end when imported; disk, hostname, and machine-only attrs stay on the host. Some duplication across modules is fine if each module “just works.”
 - **Explicit HM wiring** — only `common/` imports `"${home-manager}/nixos"`; feature modules attach to `home-manager.users.<username>`.
 - **Lean docs** — READMEs describe current behaviour; commit-worthy decisions in **MADR** under `docs/decisions/`.
 

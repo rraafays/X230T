@@ -8,6 +8,8 @@ set -g __git_path_complete_cmds \
     diff patch
 
 function __git_paths_in_repo
+    type -q git
+    or return 1
     git rev-parse --is-inside-work-tree >/dev/null 2>&1
 end
 

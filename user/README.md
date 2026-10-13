@@ -1,9 +1,8 @@
 # user
 
-Primary user account and per-user Home Manager extras for `config.common.username`.
+Primary Unix account, per-user packages, git identity, and `gh` for `config.common.username`.
 
-- `default.nix` — `users.users`, package list, HM wrapper (git)
-- `home-manager.nix` — gh, fish integration, dconf activation
-- `dconf/` — GNOME keyfile; see [dconf/README.md](dconf/README.md)
+- `default.nix` — `users.users` (`isNormalUser`, groups, packages), HM wrapper (git)
+- `home-manager.nix` — `gh`, generic shell integration for HM programs
 
-Requires `./common`. Git identity uses `common.username` and `common.email` in the HM wrapper in `default.nix`.
+Requires `./common`. Does not set login shell (see `shell/`) or GNOME dconf (see `desktop/`). Importer may combine with feature modules; attrs merge on rebuild.

@@ -10,10 +10,10 @@ NixOS config for the ThinkPad X230T. `configuration.nix` lists module imports an
 | `hardware-configuration.nix` | Disk, firmware, platform |
 | `common/` | Home Manager bootstrap, `common.*` options |
 | `system/` | Purpose-split NixOS fragments (autoupgrade, services, …) |
-| `user/` | User account, packages, git/gh, dconf |
+| `user/` | User account, packages, git/gh |
 | `shell/` | Fish, starship, lsd |
 | `terminal/` | Ghostty, tmux |
-| `desktop/` | GNOME, GTK/Qt, ibus |
+| `desktop/` | GNOME, GTK/Qt, ibus, dconf |
 | `editor/` | System Neovim |
 | `keyboard/` | Kanata |
 | `docs/decisions/` | MADR records |
@@ -47,7 +47,7 @@ See [common/README.md](common/README.md).
   boot.loader.grub.device = "/dev/nvme0n1";
   networking.hostName = "my-server";
 
-  users.users.raf = { isNormalUser = true; shell = pkgs.fish; };
+  users.users.raf = { isNormalUser = true; };
 }
 ```
 

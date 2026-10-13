@@ -135,6 +135,8 @@ let
     set -g __git_gh_short_defs $__fish_config_dir/git-gh-short-defs.inc
 
     function __git_gh_in_repo
+        type -q git
+        or return 1
         git rev-parse --is-inside-work-tree >/dev/null 2>&1
     end
 
