@@ -4,8 +4,8 @@
 
 - NixOS configuration for **one active laptop** at a time (currently ThinkPad X230T).
 - **Channel-based** upgrades, not flakes, unless explicitly requested later.
-- **`configuration.nix`** lists module imports; machine-specific settings live in **`configuration.nix`** (boot, network, GPU vars) and **`system/`** / **`hardware-configuration.nix`**.
-- **Importable modules** (`common/`, `shell/`, `terminal/`, …) for reuse on other NixOS hosts.
+- **`configuration.nix`** lists module imports; machine-specific settings live in **`configuration.nix`** (boot, network, GPU vars) and **`src/system`** / **`hardware-configuration.nix`**.
+- **Importable modules** as git submodules under **`src/`** (`common.nix`, `shell.nix`, … on GitHub) for reuse on other NixOS hosts.
 
 ## Design goals
 
@@ -16,5 +16,5 @@
 
 ## Out of scope by default
 
-- Multi-machine monorepo or submodules unless asked.
+- Flakes unless asked.
 - Capture/export scripts, flakes, or comments in code unless requested.

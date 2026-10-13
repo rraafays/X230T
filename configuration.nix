@@ -3,14 +3,14 @@
 {
   imports = [
     ./hardware-configuration.nix
-    ./common
-    ./system
-    ./user
-    ./shell
-    ./terminal
-    ./desktop
-    ./editor
-    ./keyboard
+    ./src/common
+    ./src/system
+    ./src/user
+    ./src/shell
+    ./src/terminal
+    ./src/desktop
+    ./src/editor
+    ./src/keyboard
   ];
 
   boot = {
