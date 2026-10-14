@@ -8,6 +8,7 @@
     ./src/user
     ./src/shell
     ./src/terminal
+    ./src/tty
     ./src/desktop
     ./src/editor
     ./src/keyboard

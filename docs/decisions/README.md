@@ -24,3 +24,9 @@ Architecture and design decisions for this repo, recorded as [MADR](https://adr.
 | 0014 | [README per module directory](0014-readme-per-module-directory.md) |
 | 0015 | [Human-readable rules in docs/rules](0015-human-readable-rules-in-docs-rules.md) |
 | 0016 | [common module and skeleton configuration](0016-common-module-and-skeleton-configuration.md) |
+| 0017 | [Module OOTB over DRY](0017-module-ootb-over-dry.md) |
+| 0018 | [Desktop owns GNOME dconf](0018-desktop-owns-gnome-dconf.md) |
+| 0019 | [Submodules under src](0019-submodules-under-src.md) |
+| 0020 | [kmscon TTY module](0020-kmscon-tty-module.md) |
+| 0021 | [Editor Nerd Font symbols](0021-editor-nerd-font-symbols.md) |
+| 0022 | [tmux on TTY logins](0022-tmux-on-tty-logins.md) |

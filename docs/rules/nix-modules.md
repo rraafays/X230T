@@ -22,7 +22,7 @@ Import **`./src/common`** before other HM feature modules on this host. See [sub
 
 ## Feature modules (under `src/`)
 
-`shell`, `terminal`, `desktop`, `editor`, `keyboard` (each a submodule):
+`shell`, `terminal`, `tty`, `desktop`, `editor`, `keyboard` (each a submodule):
 
 - Use `config.common.username`; no hardcoded login names
 - Do not import Home Manager themselves
@@ -47,6 +47,7 @@ Once a module is listed in `configuration.nix` (with `./src/common` and any impo
 | ----- | ------ |
 | Shell | `shell/` |
 | Terminal | `terminal/` |
+| TTY (kmscon) | `tty/` |
 | Editor | `editor/` |
 | Desktop | `desktop/` |
 | Keyboard | `keyboard/` |

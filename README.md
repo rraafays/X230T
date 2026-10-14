@@ -20,7 +20,8 @@ See [docs/rules/submodules.md](docs/rules/submodules.md) for update and bump wor
 | `src/system` | Submodule: NixOS fragments (autoupgrade, services, …) |
 | `src/user` | Submodule: user account, packages, git/gh |
 | `src/shell` | Submodule: fish, starship, lsd |
-| `src/terminal` | Submodule: Ghostty, tmux |
+| `src/terminal` | Submodule: Ghostty, tmux (including `/dev/tty*`) |
+| `src/tty` | Submodule: kmscon virtual console fonts |
 | `src/desktop` | Submodule: GNOME, GTK/Qt, ibus, dconf |
 | `src/editor` | Submodule: system Neovim |
 | `src/keyboard` | Submodule: Kanata |

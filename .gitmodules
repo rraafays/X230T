@@ -22,3 +22,6 @@
 [submodule "src/keyboard"]
 	path = src/keyboard
 	url = https://github.com/rraafays/keyboard.nix.git
+[submodule "src/tty"]
+	path = src/tty
+	url = https://github.com/rraafays/tty.nix.git
