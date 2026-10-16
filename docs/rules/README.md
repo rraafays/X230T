@@ -20,10 +20,11 @@ When policy changes, update **both** so humans and Cursor stay aligned. See [mai
 | [submodules.md](submodules.md) | `src/` layout, clone, bump pointers |
 | [documentation.md](documentation.md) | READMEs, tone, module docs |
 | [decisions.md](decisions.md) | MADR ADRs, commit granularity, AskQuestion |
+| [git.md](git.md) | Agent git usage; commits are human-only |
 | [formatting-and-code.md](formatting-and-code.md) | Neovim/conform format pass, comments policy |
 
 Related: [docs/decisions/](../decisions/README.md) (recorded decisions), root [README.md](../../README.md) (layout).
 
 ## Agents
 
-If you are an agent without Cursor rules loaded, read the topic files above before large changes. Prefer minimal diffs, match existing module style, and record decision-worthy commits in `docs/decisions/`.
+If you are an agent without Cursor rules loaded, read the topic files above before large changes. Prefer minimal diffs, match existing module style, and record decision-worthy choices in `docs/decisions/` when the user commits. Do not run `git commit` yourself; see [git.md](git.md).

@@ -19,6 +19,7 @@ Anyone changing project conventions (humans or agents) keeps **`docs/rules/`** a
 | `documentation.md` | `readme-style.mdc`, `module-readmes.mdc` |
 | `decisions.md` | `madr-adrs.mdc` |
 | `formatting-and-code.md` | `format-after-edit.mdc`, `no-comments-unless-asked.mdc` |
+| `git.md` | `git-no-agent-commit.mdc` |
 | `maintaining-rules.md` (this file) | `docs-rules-sync.mdc` |
 
 Cursor-only frontmatter (`alwaysApply`, `globs`) stays in `.mdc` files only.
