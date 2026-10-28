@@ -18,7 +18,6 @@
   services.music.enable = true;
 
   boot = {
-    kernelPackages = pkgs.linuxPackages_latest;
     loader.grub = {
       enable = true;
       device = "/dev/sda";
