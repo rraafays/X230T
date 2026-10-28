@@ -15,6 +15,8 @@
     ./src/music
   ];
 
+  services.music.realtimeKernel = false;
+
   boot = {
     loader.grub = {
       enable = true;
