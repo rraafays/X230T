@@ -31,3 +31,4 @@ Architecture and design decisions for this repo, recorded as [MADR](https://adr.
 | 0021 | [Editor Nerd Font symbols](0021-editor-nerd-font-symbols.md) |
 | 0022 | [tmux on TTY logins](0022-tmux-on-tty-logins.md) |
 | 0023 | [Music live-audio module](0023-music-live-audio-module.md) |
+| 0024 | [Import enables feature modules](0024-import-enables-feature-modules.md) |

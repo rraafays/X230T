@@ -17,4 +17,4 @@ Each importable module under `src/` should work on a fresh NixOS install when co
 
 Duplicated attrs (PipeWire, `allowUnfree`, fish, `isNormalUser`) across modules are intentional; Nix merges them. Prefer enabling a concern in every module that needs it rather than assuming `./system` is always imported.
 
-See [nix-modules.md](nix-modules.md) and ADR [0017](../decisions/0017-module-ootb-over-dry.md).
+See [nix-modules.md](nix-modules.md) (import enables; host overrides only) and ADRs [0017](../decisions/0017-module-ootb-over-dry.md), [0024](../decisions/0024-import-enables-feature-modules.md).

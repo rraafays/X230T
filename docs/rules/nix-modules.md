@@ -29,6 +29,14 @@ Per-module minimum imports and owned stack: **[modules-ootb.md](modules-ootb.md)
 - Use `config.common.username`; no hardcoded login names
 - Do not import Home Manager themselves
 
+## Import enables; host overrides
+
+A feature submodule listed in `configuration.nix` **`imports`** is **on**. The host file is for machine-specific **overrides** (e.g. `services.music.realtimeKernel = false`), hardware, and identity — not for `services.<name>.enable = true` on every import.
+
+- Prefer **no enable gate**, or an `enable` option that **defaults to `true`** so import alone activates the stack.
+- To turn a stack off, **remove the import** or set `services.<module>.enable = false` if the module exposes opt-out.
+- Do not use `lib.mkEnableOption` alone as the only way to activate a feature module (its default is `false`).
+
 ## Out of the box (module completeness)
 
 Once a module is listed in `configuration.nix` (with `./src/common` and any imports its README names), it should **deliver what it claims** without the importer wiring extra NixOS or HM attrs for that concern.
@@ -53,3 +61,4 @@ Once a module is listed in `configuration.nix` (with `./src/common` and any impo
 | Editor | `editor/` |
 | Desktop | `desktop/` |
 | Keyboard | `keyboard/` |
+| Music | `music/` |

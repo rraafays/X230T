@@ -15,8 +15,6 @@
     ./src/music
   ];
 
-  services.music.enable = true;
-
   boot = {
     loader.grub = {
       enable = true;
