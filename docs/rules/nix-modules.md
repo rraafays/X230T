@@ -22,7 +22,9 @@ Import **`./src/common`** before other HM feature modules on this host. See [sub
 
 ## Feature modules (under `src/`)
 
-`shell`, `terminal`, `tty`, `desktop`, `editor`, `keyboard` (each a submodule):
+`shell`, `terminal`, `tty`, `desktop`, `editor`, `keyboard`, `music`, `user` (each a submodule or host-adjacent module):
+
+Per-module minimum imports and owned stack: **[modules-ootb.md](modules-ootb.md)**.
 
 - Use `config.common.username`; no hardcoded login names
 - Do not import Home Manager themselves

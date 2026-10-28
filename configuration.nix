@@ -12,7 +12,10 @@
     ./src/desktop
     ./src/editor
     ./src/keyboard
+    ./src/music
   ];
+
+  services.music.enable = true;
 
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;

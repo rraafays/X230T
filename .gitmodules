@@ -25,3 +25,6 @@
 [submodule "src/tty"]
 	path = src/tty
 	url = https://github.com/rraafays/tty.nix.git
+[submodule "src/music"]
+	path = src/music
+	url = https://github.com/rraafays/music.nix.git

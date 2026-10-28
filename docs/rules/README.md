@@ -17,6 +17,7 @@ When policy changes, update **both** so humans and Cursor stay aligned. See [mai
 | -------- | ------ |
 | [philosophy.md](philosophy.md) | Goals: one laptop, importable modules, channels, common options |
 | [nix-modules.md](nix-modules.md) | Host vs module split, Home Manager via `common.nix` |
+| [modules-ootb.md](modules-ootb.md) | Per-module minimum imports and OOTB ownership |
 | [submodules.md](submodules.md) | `src/` layout, clone, bump pointers |
 | [documentation.md](documentation.md) | READMEs, tone, module docs |
 | [decisions.md](decisions.md) | MADR ADRs, commit granularity, AskQuestion |
