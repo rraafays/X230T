@@ -2,21 +2,20 @@
 
 ## Context and Problem Statement
 
-Tmux splits with fish (vi bindings, starship, tab completion on wide paths) showed blank rows, broken pane borders, and ragged completion columns. Fish’s terminal queries and focus events interact badly with tmux’s pane model; ambiguous-width characters in paths widen completion columns unevenly.
+Tmux with fish and vi bindings showed broken completions and pane redraw glitches. Fish-specific tmux snippets did not belong in the shell-agnostic `terminal/` module.
 
 ## Considered Options
 
-- Leave tmux defaults and fish unchanged
-- Disable tmux focus reporting and tune terminal features; fish workarounds when `TMUX` is set
-- Drop tmux on SSH and use fish only on the host
+- More fish workarounds in `terminal/` (focus events, ambiguous width, repaint hooks)
+- Split responsibilities: `terminal/` only Ghostty + tmux; `shell/` owns optional fish/tmux key passthrough
+- Drop tmux
 
 ## Decision Outcome
 
-Chosen option: "Disable tmux focus reporting and tune terminal features; fish workarounds when `TMUX` is set", because the stack stays tmux-first while fixing the common fish/tmux failure modes without host-specific patches.
+Chosen option: "Split responsibilities", with tmux term settings in `terminal/` and fish `55-tmux-alt-keys` in `shell/` so Alt+arrows reach tmux for pane navigation when using fish.
 
 ### Consequences
 
-- Good: `terminal/` owns tmux terminfo and passthrough; `shell/` owns fish-side reflow, query, and width settings
-- Good: Ghostty alt-key passthrough via `extended-keys` remains for pane navigation
-- Bad: Neovim and other apps no longer receive tmux focus-in/out events (usually acceptable)
-- Bad: some upstream fish pager blanking may remain until fish fixes inline completion cleanup in tmux
+- Good: import `terminal/` without implying fish; SSH or other shells work inside tmux
+- Good: no TTY auto-tmux bootstrap in fish; Ghostty (or the user) starts tmux
+- Bad: hosts need both `terminal/` and `shell/` for Alt+arrow pane keys with fish
