@@ -2,20 +2,20 @@
 
 ## Context and Problem Statement
 
-Tmux with fish and vi bindings showed broken completions and pane redraw glitches. Fish-specific tmux snippets did not belong in the shell-agnostic `terminal/` module.
+Tab completion in fish over SSH inside a local tmux split (for example btop in one pane, `ssh SRVR` in another) drew completion columns padded to the wrong width and could corrupt the tmux display across pane borders. Fish and starship layout use `$COLUMNS`; that variable often reflects the client window or an old size, not the SSH PTY width inside the tmux pane.
 
 ## Considered Options
 
-- More fish workarounds in `terminal/` (focus events, ambiguous width, repaint hooks)
-- Split responsibilities: `terminal/` only Ghostty + tmux; `shell/` owns optional fish/tmux key passthrough
-- Drop tmux
+- Fish feature flags and prompt-marking disables in tmux
+- Keep `$COLUMNS` in sync with `stty size` before completion; stop sshd from accepting client `COLUMNS`/`LINES`
+- Disable fish tab completion in tmux
 
 ## Decision Outcome
 
-Chosen option: "Split responsibilities", with tmux term settings in `terminal/` and fish tmux snippets in `shell/` (`46-tmux`, `55-tmux-alt-keys`).
+Chosen option: sync `$COLUMNS`/`$LINES` with the PTY and restrict `AcceptEnv`, because fish upstream tests assume `$COLUMNS` matches the tmux pane and OpenSSH should not inject a conflicting width from the client.
 
 ### Consequences
 
-- Good: import `terminal/` without implying fish; SSH or other shells work inside tmux
-- Good: `46-tmux` sets `$COLUMNS`/`$LINES` from `stty size` per pane (not stale SSH/window values) and disables fish prompt marking in tmux
-- Bad: hosts need `shell/` for fish tmux fixes even when only the remote side runs fish over SSH
+- Good: `shell/46-pty-term-size.fish` and shared `system/services.nix` apply on X230T and SRVR via submodules
+- Good: no `fish_features` toggles; `terminal/` stays shell-agnostic
+- Bad: tab binding is overridden in insert mode when `$TMUX` or `$SSH_CONNECTION` (vi bindings only)
