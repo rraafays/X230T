@@ -12,10 +12,10 @@ Tmux with fish and vi bindings showed broken completions and pane redraw glitche
 
 ## Decision Outcome
 
-Chosen option: "Split responsibilities", with tmux term settings in `terminal/` and fish `55-tmux-alt-keys` in `shell/` so Alt+arrows reach tmux for pane navigation when using fish.
+Chosen option: "Split responsibilities", with tmux term settings in `terminal/` and fish tmux snippets in `shell/` (`46-tmux`, `55-tmux-alt-keys`).
 
 ### Consequences
 
 - Good: import `terminal/` without implying fish; SSH or other shells work inside tmux
-- Good: no TTY auto-tmux bootstrap in fish; Ghostty (or the user) starts tmux
-- Bad: hosts need both `terminal/` and `shell/` for Alt+arrow pane keys with fish
+- Good: `46-tmux` disables fish prompt OSC marking and terminal queries in tmux so completions and SSH splits do not corrupt other panes
+- Bad: hosts need `shell/` for fish tmux fixes even when only the remote side runs fish over SSH
