@@ -17,5 +17,5 @@ Chosen option: "Split responsibilities", with tmux term settings in `terminal/` 
 ### Consequences
 
 - Good: import `terminal/` without implying fish; SSH or other shells work inside tmux
-- Good: `46-tmux` disables fish prompt OSC marking and terminal queries in tmux so completions and SSH splits do not corrupt other panes
+- Good: `46-tmux` sets `$COLUMNS`/`$LINES` from `stty size` per pane (not stale SSH/window values) and disables fish prompt marking in tmux
 - Bad: hosts need `shell/` for fish tmux fixes even when only the remote side runs fish over SSH
