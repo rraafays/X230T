@@ -33,3 +33,5 @@ Architecture and design decisions for this repo, recorded as [MADR](https://adr.
 | 0023 | [Music live-audio module](0023-music-live-audio-module.md) |
 | 0024 | [Import enables feature modules](0024-import-enables-feature-modules.md) |
 | 0025 | [Tmux and fish display compatibility](0025-tmux-fish-display-compatibility.md) |
+| 0026 | [Ghostty CJK font-codepoint maps](0026-ghostty-cjk-font-codepoint-maps.md) |
+| 0027 | [Kitty instead of Ghostty](0027-kitty-instead-of-ghostty.md) |
