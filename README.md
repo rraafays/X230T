@@ -12,21 +12,21 @@ See [docs/rules/submodules.md](docs/rules/submodules.md) for update and bump wor
 
 ## Layout
 
-| Path | Role |
-| ---- | ---- |
-| `configuration.nix` | Imports, boot, hostname, wireless, iGPU session vars |
-| `hardware-configuration.nix` | Disk, firmware, platform |
-| `src/common` | Submodule: Home Manager bootstrap, `common.*` options |
-| `src/system` | Submodule: NixOS fragments (autoupgrade, services, …) |
-| `src/user` | Submodule: user account, packages, git/gh |
-| `src/shell` | Submodule: fish, starship, lsd |
-| `src/terminal` | Submodule: Kitty, tmux (including `/dev/tty*`) |
-| `src/tty` | Submodule: kmscon virtual console fonts |
-| `src/desktop` | Submodule: GNOME, GTK/Qt, ibus, dconf |
-| `src/editor` | Submodule: system Neovim |
-| `src/keyboard` | Submodule: Kanata |
-| `docs/decisions/` | MADR records |
-| `docs/rules/` | Project rules |
+| Path                         | Role                                                  |
+| ---------------------------- | ----------------------------------------------------- |
+| `configuration.nix`          | Imports, boot, hostname, wireless, iGPU session vars  |
+| `hardware-configuration.nix` | Disk, firmware, platform                              |
+| `src/common`                 | Submodule: Home Manager bootstrap, `common.*` options |
+| `src/system`                 | Submodule: NixOS fragments (autoupgrade, services, …) |
+| `src/user`                   | Submodule: user account, packages, git/gh             |
+| `src/shell`                  | Submodule: fish, starship, lsd                        |
+| `src/terminal`               | Submodule: Alacritty, tmux (including `/dev/tty*`)    |
+| `src/tty`                    | Submodule: kmscon virtual console fonts               |
+| `src/desktop`                | Submodule: GNOME, GTK/Qt, ibus, dconf                 |
+| `src/editor`                 | Submodule: system Neovim                              |
+| `src/keyboard`               | Submodule: Kanata                                     |
+| `docs/decisions/`            | MADR records                                          |
+| `docs/rules/`                | Project rules                                         |
 
 ## configuration.nix
 

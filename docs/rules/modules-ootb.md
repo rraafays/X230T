@@ -8,7 +8,7 @@ Each importable module under `src/` should work on a fresh NixOS install when co
 | `system` | optional | auto-upgrade channel, locale, openssh, PipeWire, sudo, rtkit, base packages, `allowUnfree` | boot, disks, networking policy |
 | `user` | `common` | normal user, wheel + NM groups, NM enabled, `allowUnfree`, git/gh HM, app packages | password or auth for the account |
 | `shell` | `common` | fish login shell, HM fish/starship/lsd/direnv | — (defaults `isNormalUser`) |
-| `terminal` | `common` | Kitty, tmux, HM fonts, CJK `symbol_map` | login shell from `./shell` or host |
+| `terminal` | `common` | Alacritty, tmux, HM fonts, Fontconfig Iosevka → Sarasa | login shell from `./shell` or host |
 | `tty` | none | kmscon, console fonts | — |
 | `editor` | none | Neovim, LSP/format tools, nerd font, `MANPAGER` | — |
 | `desktop` | `common` | GNOME, GDM, ibus, PipeWire, GTK/Qt HM, dconf | GPU/display if not generic |
