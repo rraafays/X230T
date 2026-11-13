@@ -6,33 +6,34 @@ Architecture and design decisions for this repo, recorded as [MADR](https://adr.
 - New record: copy the template to `nnnn-short-title.md`, fill sections, keep numbering sequential
 - Granularity: one ADR per **commit** when that commit is decision-worthy; backfill after commit if missing (see `0002-adr-granularity-per-commit.md`)
 
-| ID   | Record |
-| ---- | ------ |
-| 0001 | [Record architecture decisions](0001-record-architecture-decisions.md) |
-| 0002 | [ADR granularity per commit](0002-adr-granularity-per-commit.md) |
-| 0003 | [Split config into importable modules](0003-split-config-into-importable-modules.md) |
-| 0004 | [NixOS auto upgrade and GC](0004-nixos-auto-upgrade-and-gc.md) |
-| 0005 | [Kanata restart on input hotplug](0005-kanata-restart-on-input-device-hotplug.md) |
-| 0006 | [Declarative GNOME via dconf](0006-declarative-gnome-settings-via-dconf.md) |
-| 0007 | [Git/gh fish shortcuts from Nix](0007-git-and-gh-fish-shortcuts-from-nix.md) |
-| 0008 | [lsd as default listing](0008-lsd-as-default-listing-command.md) |
-| 0009 | [Neovim as man pager](0009-neovim-as-man-pager.md) |
-| 0010 | [Ghostty and tmux stack](0010-ghostty-and-tmux-terminal-stack.md) |
-| 0011 | [Ghostty window padding](0011-ghostty-window-padding.md) |
-| 0012 | [Shared options for portable modules](0012-shared-options-for-portable-modules.md) |
-| 0013 | [Neovim built-in LSP completion](0013-neovim-built-in-lsp-completion.md) |
-| 0014 | [README per module directory](0014-readme-per-module-directory.md) |
-| 0015 | [Human-readable rules in docs/rules](0015-human-readable-rules-in-docs-rules.md) |
+| ID   | Record                                                                                       |
+| ---- | -------------------------------------------------------------------------------------------- |
+| 0001 | [Record architecture decisions](0001-record-architecture-decisions.md)                       |
+| 0002 | [ADR granularity per commit](0002-adr-granularity-per-commit.md)                             |
+| 0003 | [Split config into importable modules](0003-split-config-into-importable-modules.md)         |
+| 0004 | [NixOS auto upgrade and GC](0004-nixos-auto-upgrade-and-gc.md)                               |
+| 0005 | [Kanata restart on input hotplug](0005-kanata-restart-on-input-device-hotplug.md)            |
+| 0006 | [Declarative GNOME via dconf](0006-declarative-gnome-settings-via-dconf.md)                  |
+| 0007 | [Git/gh fish shortcuts from Nix](0007-git-and-gh-fish-shortcuts-from-nix.md)                 |
+| 0008 | [lsd as default listing](0008-lsd-as-default-listing-command.md)                             |
+| 0009 | [Neovim as man pager](0009-neovim-as-man-pager.md)                                           |
+| 0010 | [Ghostty and tmux stack](0010-ghostty-and-tmux-terminal-stack.md)                            |
+| 0011 | [Ghostty window padding](0011-ghostty-window-padding.md)                                     |
+| 0012 | [Shared options for portable modules](0012-shared-options-for-portable-modules.md)           |
+| 0013 | [Neovim built-in LSP completion](0013-neovim-built-in-lsp-completion.md)                     |
+| 0014 | [README per module directory](0014-readme-per-module-directory.md)                           |
+| 0015 | [Human-readable rules in docs/rules](0015-human-readable-rules-in-docs-rules.md)             |
 | 0016 | [common module and skeleton configuration](0016-common-module-and-skeleton-configuration.md) |
-| 0017 | [Module OOTB over DRY](0017-module-ootb-over-dry.md) |
-| 0018 | [Desktop owns GNOME dconf](0018-desktop-owns-gnome-dconf.md) |
-| 0019 | [Submodules under src](0019-submodules-under-src.md) |
-| 0020 | [kmscon TTY module](0020-kmscon-tty-module.md) |
-| 0021 | [Editor Nerd Font symbols](0021-editor-nerd-font-symbols.md) |
-| 0022 | [tmux on TTY logins](0022-tmux-on-tty-logins.md) |
-| 0023 | [Music live-audio module](0023-music-live-audio-module.md) |
-| 0024 | [Import enables feature modules](0024-import-enables-feature-modules.md) |
-| 0025 | [Tmux and fish display compatibility](0025-tmux-fish-display-compatibility.md) |
-| 0026 | [Ghostty CJK font-codepoint maps](0026-ghostty-cjk-font-codepoint-maps.md) |
-| 0027 | [Kitty instead of Ghostty](0027-kitty-instead-of-ghostty.md) |
-| 0028 | [Alacritty instead of Kitty](0028-alacritty-instead-of-kitty.md) |
+| 0017 | [Module OOTB over DRY](0017-module-ootb-over-dry.md)                                         |
+| 0018 | [Desktop owns GNOME dconf](0018-desktop-owns-gnome-dconf.md)                                 |
+| 0019 | [Submodules under src](0019-submodules-under-src.md)                                         |
+| 0020 | [kmscon TTY module](0020-kmscon-tty-module.md)                                               |
+| 0021 | [Editor Nerd Font symbols](0021-editor-nerd-font-symbols.md)                                 |
+| 0022 | [tmux on TTY logins](0022-tmux-on-tty-logins.md)                                             |
+| 0023 | [Music live-audio module](0023-music-live-audio-module.md)                                   |
+| 0024 | [Import enables feature modules](0024-import-enables-feature-modules.md)                     |
+| 0025 | [Tmux and fish display compatibility](0025-tmux-fish-display-compatibility.md)               |
+| 0026 | [Ghostty CJK font-codepoint maps](0026-ghostty-cjk-font-codepoint-maps.md)                   |
+| 0027 | [Kitty instead of Ghostty](0027-kitty-instead-of-ghostty.md)                                 |
+| 0028 | [Alacritty instead of Kitty](0028-alacritty-instead-of-kitty.md)                             |
+| 0031 | [Vanilla Vim editor](0031-vanilla-vim-editor.md)                                             |

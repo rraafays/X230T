@@ -1,5 +1,7 @@
 # Neovim as man pager
 
+Superseded for the `editor/` module by [0031 Vanilla Vim editor](0031-vanilla-vim-editor.md) (default `man` pager, no `MANPAGER`).
+
 ## Context and Problem Statement
 
 Man pages should open in the same editor used for code, with familiar navigation, instead of a separate pager with different keybindings.

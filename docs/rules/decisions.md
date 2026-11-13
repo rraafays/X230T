@@ -20,7 +20,3 @@ Copy `docs/decisions/adr-template-minimal.md` for new records. Use the next free
 ## AskQuestion
 
 When drafting an ADR and content is not already clear, use AskQuestion (MCQs) for problem, options, chosen outcome, and consequences if needed.
-
-## Format
-
-Format ADR markdown with the same headless Neovim pass as other docs.

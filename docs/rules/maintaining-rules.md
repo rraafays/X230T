@@ -9,7 +9,6 @@ Anyone changing project conventions (humans or agents) keeps **`docs/rules/`** a
 1. Decide the policy change (often captured in a MADR under `docs/decisions/` when commit-worthy).
 2. Edit the relevant **`docs/rules/<topic>.md`** with full, readable explanation.
 3. Edit the matching **`.cursor/rules/*.mdc`** so Cursor still applies the same rules automatically.
-4. Run the headless format pass on touched markdown.
 
 ## Topic map
 
@@ -18,7 +17,7 @@ Anyone changing project conventions (humans or agents) keeps **`docs/rules/`** a
 | `philosophy.md`, `nix-modules.md` | `nix-modules-portable.mdc`, `nix-system-vs-common.mdc` |
 | `documentation.md` | `readme-style.mdc`, `module-readmes.mdc` |
 | `decisions.md` | `madr-adrs.mdc` |
-| `formatting-and-code.md` | `format-after-edit.mdc`, `no-comments-unless-asked.mdc` |
+| `comments.md` | `no-comments-unless-asked.mdc` |
 | `git.md` | `git-no-agent-commit.mdc` |
 | `maintaining-rules.md` (this file) | `docs-rules-sync.mdc` |
 

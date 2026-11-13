@@ -22,7 +22,7 @@ When policy changes, update **both** so humans and Cursor stay aligned. See [mai
 | [documentation.md](documentation.md) | READMEs, tone, module docs |
 | [decisions.md](decisions.md) | MADR ADRs, commit granularity, AskQuestion |
 | [git.md](git.md) | Agent git usage; commits are human-only |
-| [formatting-and-code.md](formatting-and-code.md) | Neovim/conform format pass, comments policy |
+| [comments.md](comments.md) | No comments in code/config unless asked |
 
 Related: [docs/decisions/](../decisions/README.md) (recorded decisions), root [README.md](../../README.md) (layout).
 
