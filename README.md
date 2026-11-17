@@ -22,7 +22,7 @@ See [docs/rules/submodules.md](docs/rules/submodules.md) for update and bump wor
 | `src/shell`                  | Submodule: fish, starship, lsd                        |
 | `src/terminal`               | Submodule: Alacritty, tmux (including `/dev/tty*`)    |
 | `src/tty`                    | Submodule: kmscon virtual console fonts               |
-| `src/desktop`                | Submodule: GNOME, GTK/Qt, ibus, dconf                 |
+| `src/desktop`                | Submodule: GNOME, GTK/Qt, ibus                        |
 | `src/editor`                 | Submodule: system Vim                                 |
 | `src/keyboard`               | Submodule: Kanata                                     |
 | `docs/decisions/`            | MADR records                                          |

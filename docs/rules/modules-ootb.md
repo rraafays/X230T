@@ -11,7 +11,7 @@ Each importable module under `src/` should work on a fresh NixOS install when co
 | `terminal` | `common`        | Alacritty, tmux, HM fonts, Fontconfig Iosevka → Sarasa                                           | login shell from `./shell` or host               |
 | `tty`      | none            | kmscon, console fonts                                                                            | —                                                |
 | `editor`   | none            | Vanilla Vim (`vim-full`), `/etc/vimrc`, default `EDITOR` | —                                                |
-| `desktop`  | `common`        | GNOME, GDM, ibus, PipeWire, GTK/Qt HM, dconf                                                     | GPU/display if not generic                       |
+| `desktop`  | `common`        | GNOME, GDM, ibus, PipeWire, GTK/Qt HM                                                            | GPU/display if not generic                       |
 | `keyboard` | `common`        | kanata, uinput/input groups                                                                      | — (defaults `isNormalUser`)                      |
 | `music`    | `common`        | PipeWire (low latency), JACK, rtkit, `allowUnfree`, guitar/DAW packages                          | — (defaults `isNormalUser`)                      |
 
