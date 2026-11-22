@@ -2,8 +2,8 @@
 
 let
   user = import ./user.nix;
-  starship = import ./shell/starship { inherit pkgs lib; };
-  gitGhShort = import ./shell/git-gh-fish.nix { inherit pkgs lib; };
+  starship = import ./.config/starship { inherit pkgs lib; };
+  gitGhShort = import ./.config/git-gh-fish.nix { inherit pkgs lib; };
   fishInit = ''
     fish_vi_key_bindings
     set fish_greeting
@@ -17,13 +17,13 @@ in
     home.shell.enableFishIntegration = true;
     home.file = {
       ".config/fish/conf.d" = {
-        source = ./shell/fish;
+        source = ./.config/fish;
         recursive = true;
       };
       ".config/fish/conf.d/50-git-gh-short.fish".text = gitGhShort.loader;
       ".config/fish/git-gh-short-defs.inc".text = gitGhShort.defs;
       ".config/lsd" = {
-        source = ./shell/lsd;
+        source = ./.config/lsd;
         recursive = true;
       };
       ".config/starship.toml".source = starship.user;
