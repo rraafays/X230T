@@ -30,7 +30,7 @@ in
             "-A"
             "-D"
             "-s"
-            "ghostty"
+            "main"
           ];
         };
         font = {
