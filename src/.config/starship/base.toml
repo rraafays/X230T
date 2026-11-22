@@ -45,15 +45,15 @@ style = "bold fg:11"
 
 [status]
 disabled = false
-format = '[$symbol](bold bg:9 bold fg:0)[ $status](bold bg:0 bold fg:9) '
+format = '[$status](bold fg:9)[ $symbol](bold bg:0 bold fg:9) '
 style = 'bold fg:9'
 map_symbol = true
 pipestatus = true
-symbol = ' ERROR '
-not_executable_symbol = ' FAIL '
-not_found_symbol = ' ERROR '
-sigint_symbol = ' DEBUG '
-signal_symbol = ' FATAL '
+symbol = 'ERROR'
+not_executable_symbol = 'FAIL'
+not_found_symbol = 'NOT_FOUND'
+sigint_symbol = 'DEBUG'
+signal_symbol = 'FATAL'
 pipestatus_format = '\[$pipestatus\] => [$symbol$common_meaning$signal_name$maybe_int]($style) '
 pipestatus_segment_format = '[$symbol$status]($style)'
 
