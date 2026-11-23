@@ -11,6 +11,7 @@ let
 in
 {
   programs.fish.enable = true;
+  programs.command-not-found.enable = false;
   users.users.${user.name}.shell = pkgs.fish;
   users.users.root.shell = pkgs.fish;
   home-manager.users.${user.name} = {
